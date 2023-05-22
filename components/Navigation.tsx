@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
-import {FontAwesome} from "@expo/vector-icons";
+import TabBarIcon from "./TabBarIcon";
 
 export default function Navigation() {
     const BottomTabNavigator = createBottomTabNavigator();
@@ -19,9 +19,3 @@ export default function Navigation() {
     )
 }
 
-function TabBarIcon(props: {
-    name: React.ComponentProps<typeof FontAwesome>['name'];
-    color: string;
-}) {
-    return <FontAwesome size={30} {...props} />;
-}

@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Navigation from "./components/Navigation";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider style={styles.container}>
       <Navigation/>
-    </View>
+    </SafeAreaProvider>
   );
 }
 
