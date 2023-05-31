@@ -12,7 +12,7 @@ export default function CompetitionListItem(props : CompetitionListProps) {
     const navigation = useNavigation();
 
     return (
-        <Pressable style={styles.container} onPress={() => navigation.navigate('Match',{})}>
+        <Pressable style={styles.container} onPress={() => navigation.navigate(props.name,{})}>
             <Text>{name}</Text>
         </Pressable>
     );

@@ -8,6 +8,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import HomeScreen from "../screens/HomeScreen";
 import {shouldThrowAnErrorOutsideOfExpo} from "expo/build/environment/validatorState";
 import SportHeader from "../components/SportHeader";
+import CompetitionNavigation from "./CompetitionNavigation";
 
 
 export default function Navigation(){
@@ -16,7 +17,7 @@ export default function Navigation(){
         <NavigationContainer>
             <BottomTabNavigator.Navigator>
                 <BottomTabNavigator.Screen name="Home"
-                                           component={CompetitionScreen}
+                                           component={CompetitionNavigation}
                                            options={{
                                                title: 'Home',
                                                tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
