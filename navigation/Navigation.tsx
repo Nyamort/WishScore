@@ -4,9 +4,11 @@ import {NavigationContainer} from "@react-navigation/native";
 import TabBarIcon from "../components/TabBarIcon";
 import CompetitionScreen from "../screens/CompetitionScreen";
 import { StyleSheet, View} from "react-native";
+import { CommonActions } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
+import { createContext, useReducer } from 'react';
 
-export default function Navigation() {
+export default function Navigation({navigation}){
     const BottomTabNavigator = createBottomTabNavigator();
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('foot');
@@ -15,6 +17,34 @@ export default function Navigation() {
         {label: 'Basketball', value: 'basket'},
         {label: 'Rugby', value: 'rugby'}
     ]);
+    //============================creation du context===================================================================
+    // @ts-ignore
+    /*const DispatcherContext = createContext();
+    navigation.dispatch((state) => {
+        // Add the home route to the start of the stack
+        const routes = [{ name: 'Home' }, ...state.routes];
+
+        return CommonActions.reset({
+            ...state,
+            routes,
+            index: routes.length - 1,
+        });
+    });*/
+
+    const insertBeforeLast = (routeName, params, props) => (state) => {
+        const routes = [
+            ...state.routes.slice(0, -1),
+            { name: routeName, params },
+            state.routes[state.routes.length - 1],
+        ];
+
+        return CommonActions.reset({
+            ...state,
+            routes,
+            index: routes.length - 1,
+        });
+    };
+
     return (
         <NavigationContainer>
             <BottomTabNavigator.Navigator initialRouteName="Home">

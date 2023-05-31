@@ -10,7 +10,7 @@ export const CompetitionList : string[] = [
 ]
 export default function CompetitionScreen({navigation,dispatch}){
     var sport;
-    var nav = navigation.dispatch(navigation.getParent().insertBeforeLast('Home', {item: sport}));
+    //var nav = navigation.dispatch(navigation.getParent().insertBeforeLast('Home', {item: sport}));
 
     var onChangeValue = ({viewableItems}) => {
         if (viewableItems.length > 0) {
@@ -22,7 +22,7 @@ export default function CompetitionScreen({navigation,dispatch}){
             <>
                 <Text>{sport}</Text>
                 <FlatList data={CompetitionList} renderItem={elt => <CompetitionListItem name={elt.item}/>}
-                          keyExtractor={(item) => item} onViewableItemsChanged={dispatch()}/>
+                          keyExtractor={(item) => item}/>
 
             </>
         );
