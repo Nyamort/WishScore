@@ -37,14 +37,21 @@ export default function CompetitionNavigation() {
     }, [selectedSport]);
 
 
-    if(filteredData.length === 0){
+    if (filteredData.length === 0) {
         return (
             <></>
         )
     }
     return (
         <Stack.Navigator>
-            <Stack.Screen name="List" component={() => <CompetitionScreen competitions={filteredData}></CompetitionScreen>} />
+            <Stack.Screen
+                name="List"
+                options={{
+                    headerShown: false,
+                }}
+            >
+                {props => <CompetitionScreen competitions={filteredData}></CompetitionScreen>}
+            </Stack.Screen>
             {filteredData.map((item) => (
                 <Stack.Screen
                     key={item.id}

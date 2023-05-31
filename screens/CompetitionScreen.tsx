@@ -1,12 +1,21 @@
 import {Competition} from "../navigation/CompetitionNavigation";
 import {FlatList} from "react-native";
 import CompetitionListItem from "../components/CompetitionListItem";
+import {useFocusEffect, useIsFocused, useNavigation} from "@react-navigation/native";
+import {useEffect} from "react";
 
 type CompetitionScreenProps = {
     competitions: Competition[]
 }
 
 export default function CompetitionScreen(props: CompetitionScreenProps) {
+    const navigation = useNavigation();
+
+    useFocusEffect(() => {
+        navigation.getParent().setOptions({
+            headerShown: true,
+        });
+    });
 
     return (
         <FlatList

@@ -1,13 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {StyleSheet} from 'react-native';
 import MatchItem, {MatchItemProps} from "../components/MatchItem";
 import {FlatList} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
 export const MATCHLIST: MatchItemProps[] = [
     {equipe1: "Saint-Etienne", equipe2: "Lyon", score1: 5, score2: 4},
 ]
 
 export default function MatchScreen() {
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.getParent().setOptions({
+            headerShown: false,
+        });
+    }, []);
+
     return (
         <FlatList
             data={MATCHLIST}

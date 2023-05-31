@@ -3,6 +3,7 @@ import {StyleSheet, View} from "react-native";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {SPORT_CHANGED} from "../constantes";
+import {initialState} from "../redux/reducers/appReducer";
 
 const items = [
     {label: 'Football', value: 'foot'},
@@ -12,7 +13,7 @@ const items = [
 
 export default function SportHeader() {
     const dispatch = useDispatch();
-    const [value, setValue] = useState('foot');
+    const [value, setValue] = useState(initialState.selectedSport);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
