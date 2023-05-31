@@ -1,12 +1,13 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import React, {useState} from "react";
+import { ComponentType, useState } from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import TabBarIcon from "../components/TabBarIcon";
 import CompetitionScreen from "../screens/CompetitionScreen";
 import { StyleSheet, View} from "react-native";
-import { CommonActions } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
-import { createContext, useReducer } from 'react';
+import HomeScreen from "../screens/HomeScreen";
+import {shouldThrowAnErrorOutsideOfExpo} from "expo/build/environment/validatorState";
+
 
 export default function Navigation(){
     const BottomTabNavigator = createBottomTabNavigator();
@@ -15,46 +16,25 @@ export default function Navigation(){
     const [items, setItems] = useState([
         {label: 'Football', value: 'foot'},
         {label: 'Basketball', value: 'basket'},
-        {label: 'Rugby', value: 'rugby'}
+        {label: 'Rugby', value: 'rubgy'}
     ]);
-    //============================creation du context===================================================================
-    // @ts-ignore
-    /*const DispatcherContext = createContext();
-    navigation.dispatch((state) => {
-        // Add the home route to the start of the stack
-        const routes = [{ name: 'Home' }, ...state.routes];
+    const [sport, setSport] = useState(items[0].value);
 
-        return CommonActions.reset({
-            ...state,
-            routes,
-            index: routes.length - 1,
-        });
-    });*/
-
-    const insertBeforeLast = (routeName, params, props) => (state) => {
-        const routes = [
-            ...state.routes.slice(0, -1),
-            { name: routeName, params },
-            state.routes[state.routes.length - 1],
-        ];
-
-        return CommonActions.reset({
-            ...state,
-            routes,
-            index: routes.length - 1,
-        });
-    };
-
+    function changeView(value) {
+        setSport(value);
+        return;
+    }//redux
     return (
         <NavigationContainer>
-            <BottomTabNavigator.Navigator initialRouteName="Home">
-                <BottomTabNavigator.Screen name="Home" component={CompetitionScreen}
+            <BottomTabNavigator.Navigator>
+                <BottomTabNavigator.Screen name="Home" component={CompetitionScreen} initialParams={{sport: sport}}
                                            options={{
                                                title: 'Home',
                                                tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
                                                headerRight: () => (
                                                    <View style={styles.container}>
                                                        <DropDownPicker
+                                                           onChangeValue={(value) => changeView(value)}
                                                            open={open}
                                                            value={value}
                                                            items={items}
