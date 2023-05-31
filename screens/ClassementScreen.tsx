@@ -1,8 +1,8 @@
-import {FlatList, StyleSheet, Text, View} from "react-native";
+import {StyleSheet} from "react-native";
 import React from "react";
 import {Table, Row, Rows} from 'react-native-table-component';
 
-const classement: any[] = [
+const classementScreen: any[] = [
     [1, 'FC Barcelone', 85, 35],
     [2, 'Real Madrid', 84, 35],
     [3, 'Atletico Madrid', 83, 35],
@@ -16,7 +16,7 @@ export default function ClassementScreen() {
     return (
         <Table>
             <Row data={tableHead} style={styles.header} textStyle={styles.headerText}/>
-            <Rows data={classement} style={styles.row} textStyle={styles.text}/>
+            <Rows data={classementScreen} style={styles.row} textStyle={styles.text}/>
         </Table>
     );
 }
