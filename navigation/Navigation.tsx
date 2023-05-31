@@ -8,7 +8,7 @@ import { CommonActions } from '@react-navigation/native';
 import DropDownPicker from "react-native-dropdown-picker";
 import { createContext, useReducer } from 'react';
 
-export default function Navigation({navigation}){
+export default function Navigation(){
     const BottomTabNavigator = createBottomTabNavigator();
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('foot');
