@@ -14,7 +14,6 @@ const reducer = {
     appReducer: sportReducer,
     classementReducer: classementReducer,
     competitionReducer: competitionReducer,
-    
 }
 
 const store = configureStore({
