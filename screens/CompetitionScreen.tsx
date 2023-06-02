@@ -1,8 +1,8 @@
 import {Competition} from "../navigation/CompetitionNavigation";
-import {FlatList} from "react-native";
+import {FlatList, ImageBackground} from "react-native";
 import CompetitionListItem from "../components/CompetitionListItem";
-import {useFocusEffect, useNavigation} from "@react-navigation/native";
-import {useEffect} from "react";
+import {useFocusEffect, useIsFocused, useNavigation} from "@react-navigation/native";
+import {useEffect, useState} from "react";
 
 type CompetitionScreenProps = {
     competitions: Competition[]
@@ -10,18 +10,29 @@ type CompetitionScreenProps = {
 
 export default function CompetitionScreen(props: CompetitionScreenProps) {
     const navigation = useNavigation();
+    let sport = null;
+    let list = [
+        {image: require("../assets/images/background.png"), sport: "foot"},
+        {image: require("../assets/images/background-basket.png"), sport: "basket"},
+        {image: require("../assets/images/background.png"), sport: "rugby"}];
+    const [image, setImage] = useState(require("../assets/images/background.png"));
 
     useFocusEffect(() => {
         navigation.getParent().setOptions({
             headerShown: true,
         });
+        sport = props.competitions[0].sport;
+        // @ts-ignore
+        setImage(list.find((item) => item.sport == props.competitions[0].sport).image);
     });
 
     return (
-        <FlatList
-            data={props.competitions}
-            renderItem={({item}) => <CompetitionListItem name={item.title}></CompetitionListItem>}
-            keyExtractor={item => item.id.toString()}
-        />
+        <ImageBackground source={image} style={{flex: 1}}>
+            <FlatList
+                data={props.competitions}
+                renderItem={({item}) => <CompetitionListItem name={item.title}></CompetitionListItem>}
+                keyExtractor={item => item.id.toString()}
+            />
+        </ImageBackground>
     );
 }
