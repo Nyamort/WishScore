@@ -14,7 +14,7 @@ export default function Navigation(){
                 <BottomTabNavigator.Screen name="Home"
                                            component={CompetitionNavigation}
                                            options={{
-                                               title: 'Home',
+                                               title: 'Accueil',
                                                tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
                                                headerRight: () => <SportHeader/>,
                                            }}/>

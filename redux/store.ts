@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit'
-import appReducer from './reducers/appReducer';
+import sportReducer from './reducers/sportReducer';
 
 const reducer = {
-    appReducer: appReducer,
+    appReducer: sportReducer,
 }
 
 const store = configureStore({

@@ -3,7 +3,7 @@ import {StyleSheet, View} from "react-native";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {SPORT_CHANGED} from "../constantes";
-import {initialState} from "../redux/reducers/appReducer";
+import {initialState} from "../redux/reducers/sportReducer";
 
 const items = [
     {label: 'Football', value: 'foot'},

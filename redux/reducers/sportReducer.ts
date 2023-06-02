@@ -4,7 +4,7 @@ export const initialState = {
     selectedSport: 'foot',
 }
 
-export default  function appReducer (state = initialState, action) {
+export default  function sportReducer (state = initialState, action) {
     switch (action.type) {
         case SPORT_CHANGED:
             initialState.selectedSport = action.payload;
