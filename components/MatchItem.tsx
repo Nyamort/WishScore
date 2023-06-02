@@ -1,5 +1,4 @@
-import { View, Text, StyleSheet, ImageSourcePropType } from "react-native";
-import { Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 export type MatchItemProps = {
     // logo1: ImageSourcePropType,

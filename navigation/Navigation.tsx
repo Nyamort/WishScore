@@ -17,7 +17,6 @@ export default function Navigation(){
                                                title: 'Home',
                                                tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
                                                headerRight: () => <SportHeader/>,
-
                                            }}/>
             </BottomTabNavigator.Navigator>
         </NavigationContainer>
