@@ -1,7 +1,7 @@
 import {Competition} from "../navigation/CompetitionNavigation";
 import {FlatList} from "react-native";
 import CompetitionListItem from "../components/CompetitionListItem";
-import {useFocusEffect, useIsFocused, useNavigation} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {useEffect} from "react";
 
 type CompetitionScreenProps = {

@@ -4,14 +4,9 @@ import MatchScreen from "../screens/MatchScreen";
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import CompetitionScreen from "../screens/CompetitionScreen";
+import {Competition} from "../model/Competition";
 
-export type Competition = {
-    title: string
-    sport: string
-    id: number
-}
-
-export const CompetitionList: Competition[] = [
+const CompetitionList: Competition[] = [
     {title: "Ligue1", sport: "foot", id: 1},
     {title: "Ligue2", sport: "foot", id: 2},
     {title: "NBA", sport: "basket", id: 3},

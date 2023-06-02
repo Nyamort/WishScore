@@ -1,7 +1,7 @@
 import {SPORT_CHANGED} from "../../constantes";
 
 export const initialState = {
-    selectedSport: undefined,
+    selectedSport: 'foot',
 }
 
 export default  function appReducer (state = initialState, action) {
