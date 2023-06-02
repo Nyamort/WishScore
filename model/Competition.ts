@@ -1,7 +1,5 @@
-import {Sport} from "./Sport";
-
 export type Competition = {
     title: string
-    sport: Sport
+    sportId: string
     id: string
 }
