@@ -4,6 +4,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import { StyleSheet} from "react-native";
 import SportHeader from "../components/SportHeader";
 import CompetitionNavigation from "./CompetitionNavigation";
+import EquipeScreen from "../screens/EquipeScreen";
 
 
 export default function Navigation(){

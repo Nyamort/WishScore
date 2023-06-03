@@ -11,7 +11,7 @@ import { SPORT_LIST } from '../data/stub/stubSport';
 import { COMPETITION_LIST } from '../data/stub/stubCompetition';
 
 const reducer = {
-    appReducer: sportReducer,
+    sportReducer: sportReducer,
     classementReducer: classementReducer,
     competitionReducer: competitionReducer,
 }

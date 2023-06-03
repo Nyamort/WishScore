@@ -5,7 +5,10 @@ import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import CompetitionScreen from "../screens/CompetitionScreen";
 import {Competition} from "../model/Competition";
+import ClassementScreen from "../screens/ClassementScreen";
+import EquipeScreen from "../screens/EquipeScreen";
 
+//@ts-ignore
 const CompetitionList: Competition[] = [
     {title: "Ligue1", sport: "foot", id: 1},
     {title: "Ligue2", sport: "foot", id: 2},
@@ -16,7 +19,8 @@ const CompetitionList: Competition[] = [
 
 export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
-    const selectedSport = useSelector(state => state.appReducer.selectedSport);
+    //@ts-ignore
+    const selectedSport = useSelector(state => state.sportReducer.selectedSport);
 
     const [data, setData] = useState(CompetitionList); // Liste complète des données
     const [filteredData, setFilteredData] = useState([]); // Liste filtrée des données
@@ -47,11 +51,12 @@ export default function CompetitionNavigation() {
             >
                 {props => <CompetitionScreen competitions={filteredData}></CompetitionScreen>}
             </Stack.Screen>
+            <Stack.Screen name={"EquipeScreen"} component={EquipeScreen}/>
             {filteredData.map((item) => (
                 <Stack.Screen
                     key={item.id}
                     name={item.title}
-                    component={MatchScreen}
+                    component={ClassementScreen}
                 />
             ))}
         </Stack.Navigator>
