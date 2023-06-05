@@ -4,4 +4,5 @@ export type Classement = {
     equipeId: string
     nombrePoints: number
     matchJoue: number
+    competitionId: string
 }

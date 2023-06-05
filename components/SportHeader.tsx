@@ -5,15 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {SPORT_CHANGED} from "../constantes";
 import {initialState} from "../redux/reducers/sportReducer";
 
-const items = [
-    {label: 'Football', value: 'foot'},
-    {label: 'Basketball', value: 'basket'},
-    {label: 'Rugby', value: 'rugby'}
-];
-
 export default function SportHeader() {
     const dispatch = useDispatch();
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
+    const sports = useSelector(state => state.sportReducer.sports);
     const [value, setValue] = useState(selectedSport);
     const [open, setOpen] = useState(false);
 
@@ -26,7 +21,11 @@ export default function SportHeader() {
             <DropDownPicker
                 open={open}
                 value={value}
-                items={items}
+                items={sports}
+                schema={{
+                    label: 'label',
+                    value: 'id',
+                }}
                 setOpen={setOpen}
                 setValue={setValue}/>
         </View>

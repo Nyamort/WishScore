@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     centered: {
         alignItems: "center"
     },
-    equipe: {
+    equipes: {
         display: "flex",
     },
     score: {

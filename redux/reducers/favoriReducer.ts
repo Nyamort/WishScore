@@ -7,8 +7,7 @@ const initialState = {
   export default  function favoriReducer (state = initialState, action) {
     switch (action.type) {
         case FAVORI_CHANGED:
-            initialState.favori = action.payload;
-            return {...state, selectedSport: initialState.favori};
+            return {...state, selectedSport: action.favori};
         default:
             return state;
     }

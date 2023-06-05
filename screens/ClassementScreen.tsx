@@ -1,45 +1,57 @@
-import {Pressable, StyleSheet} from "react-native";
+import {Pressable, StyleSheet, Text} from "react-native";
 import React, {useEffect} from "react";
-import {Table, Row} from 'react-native-table-component';
-import EquipeScreen from "./EquipeScreen";
-import {NavigationContainer} from "@react-navigation/native";
+import {Table, Row, TableWrapper, Cell} from 'react-native-table-component';
 import {useSelector} from "react-redux";
-
-import {useSelector} from 'react-redux';
-const classementScreen: any[] = [
-    [1, 'FC Barcelone', 85, 35],
-    [2, 'Real Madrid', 84, 35],
-    [3, 'Atletico Madrid', 83, 35],
-    [4, 'FC Seville', 82, 35],
-    [5, 'Real Sociedad', 81, 35],
-];
+import {Classement} from "../model/Classement";
+import {Equipe} from "../model/Equipe";
+import EquipeScreen from "./EquipeScreen";
 
 const tableHead = ['#', 'Equipe', 'Points', 'Matchs joués'];
 
-export default function ClassementScreen({navigation}) {
+export default function ClassementScreen({navigation, route}) {
 
-    useEffect(()=>{
+    const competition = route.params.competition;
+
+    const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
+
+    useEffect(() => {
         navigation.getParent().setOptions({
             headerShown: false,
         });
-    },[])
+    }, [])
 
 
-    function onPressItem(index) {
-        console.log(classementScreen[index][1]);
-        navigation.navigate(EquipeScreen, {equipe: classementScreen[index][1].toString()});
+    function onPressItem(equipe: Equipe) {
+        navigation.navigate(EquipeScreen, {equipe});
     }
-    // const MatchList = useSelector(state => state.matchReducer.match);
-    const classementList = useSelector(state => state.classementReducer.classement);
-    // console.log(classementList);
+
+    const classementList = useSelector(state => state.classementReducer.classements);
+    let classements = classementList.filter((classement: Classement) => classement.competitionId === competition.id);
+    classements = classements.map((classement: Classement) => {
+        return {
+            position: classement.position,
+            equipe: equipes.find((equipe) => equipe.id === classement.equipeId),
+            nombrePoints: classement.nombrePoints,
+            matchJoue: classement.matchJoue
+        };
+    });
+
+
     return (
         <Table>
             <Row data={tableHead} style={styles.header} textStyle={styles.headerText}/>
-            {classementScreen.map((rowData, index) => (
-            <Pressable onPress={() => onPressItem(index)}>
-                <Row key={rowData[0][0]} data={rowData} style={styles.row} textStyle={styles.text}/>
-            </Pressable>
-            ))}
+            {
+                classements.map((rowData, index) => (
+                    <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipe)}>
+
+                        <Cell textStyle={styles.text} data={rowData.position}/>
+                        <Cell data={rowData.equipe.name}/>
+                        <Cell textStyle={styles.text} data={rowData.nombrePoints}/>
+                        <Cell textStyle={styles.text} data={rowData.matchJoue}/>
+                    </Pressable>
+
+                ))
+            }
         </Table>
     );
 }
@@ -57,6 +69,8 @@ const styles = StyleSheet.create({
     row: {
         height: 40,
         backgroundColor: '#ffffff',
+        flexDirection: 'row',
+        display: 'flex',
     },
     text: {
         textAlign: 'center',

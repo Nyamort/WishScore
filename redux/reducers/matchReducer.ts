@@ -8,8 +8,7 @@ const initialState = {
   export default  function matchReducer (state = initialState, action) {
     switch (action.type) {
         case MATCH_CHANGED:
-            initialState.match = action.payload;
-            return {...state, selectedSport: initialState.match};
+            return {...state, selectedSport: action.match};
         default:
             return state;
     }

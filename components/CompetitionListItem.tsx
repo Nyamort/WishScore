@@ -1,19 +1,20 @@
 import {StyleSheet, Text, Pressable} from 'react-native'
 import React from "react";
 import {useNavigation} from "@react-navigation/native";
+import {Competition} from "../model/Competition";
 
 type CompetitionListProps = {
-    name : string
+    competition: Competition
 }
 export default function CompetitionListItem(props : CompetitionListProps) {
    
-    const name = props.name;
+    const competition = props.competition;
 
     const navigation = useNavigation();
 
     return (
-        <Pressable style={styles.container} onPress={() => navigation.navigate(props.name as any)}>
-            <Text>{name}</Text>
+        <Pressable style={styles.container} onPress={() => navigation.navigate(competition.title as any,{competition: competition})}>
+            <Text>{competition.title}</Text>
         </Pressable>
     );
 }
