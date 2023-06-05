@@ -8,23 +8,10 @@ import {useSelector} from 'react-redux';
 
 
 export default function EquipeScreen({route}) {
-    // useEffect(
-    //     () => {
-    //         console.log("Props : " + props.equipe);
-    //     },[props]
-    // )
+    // @ts-ignore
     const equipeList = useSelector(state => state.equipeReducer.equipe);
-    // console.log(equipeList);
-    export default function EquipeScreen({route}) {
         //TODO
-        const data1 = [{
-            equipe1: 'Lyon',
-            equipe2: 'Paris',
-            score1: 1,
-            score2: 0,
-            date: new Date(),
-            competition: 'RocketLeague'
-        },
+        const data1 = [
             {equipe1: 'Lyon', equipe2: 'Paris', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'},
             {equipe1: 'Lyon', equipe2: 'Paris', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'},
             {equipe1: 'Lyon', equipe2: 'Paris', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'},
@@ -90,4 +77,3 @@ export default function EquipeScreen({route}) {
             color: 'red',
         }
     });
-}

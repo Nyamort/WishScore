@@ -12,6 +12,7 @@ export default function ClassementScreen({navigation, route}) {
 
     const competition = route.params.competition;
 
+    // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
 
     useEffect(() => {
@@ -25,6 +26,7 @@ export default function ClassementScreen({navigation, route}) {
         navigation.navigate(EquipeScreen, {equipe});
     }
 
+    // @ts-ignore
     const classementList = useSelector(state => state.classementReducer.classements);
     let classements = classementList.filter((classement: Classement) => classement.competitionId === competition.id);
     classements = classements.map((classement: Classement) => {
