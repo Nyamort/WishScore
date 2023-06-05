@@ -1,8 +1,9 @@
 import {Pressable, StyleSheet} from "react-native";
-import React from "react";
+import React, {useEffect} from "react";
 import {Table, Row} from 'react-native-table-component';
 import EquipeScreen from "./EquipeScreen";
 import {NavigationContainer} from "@react-navigation/native";
+import {useSelector} from "react-redux";
 
 const classementScreen: any[] = [
     [1, 'FC Barcelone', 85, 35],
@@ -15,6 +16,13 @@ const classementScreen: any[] = [
 const tableHead = ['#', 'Equipe', 'Points', 'Matchs joués'];
 
 export default function ClassementScreen({navigation}) {
+
+    useEffect(()=>{
+        navigation.getParent().setOptions({
+            headerShown: false,
+        });
+    },[])
+
 
     function onPressItem(index) {
         console.log(classementScreen[index][1]);

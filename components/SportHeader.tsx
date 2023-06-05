@@ -1,7 +1,7 @@
 import DropDownPicker from "react-native-dropdown-picker";
 import {StyleSheet, View} from "react-native";
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {SPORT_CHANGED} from "../constantes";
 import {initialState} from "../redux/reducers/sportReducer";
 
@@ -13,7 +13,8 @@ const items = [
 
 export default function SportHeader() {
     const dispatch = useDispatch();
-    const [value, setValue] = useState(initialState.selectedSport);
+    const selectedSport = useSelector(state => state.sportReducer.selectedSport);
+    const [value, setValue] = useState(selectedSport);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {

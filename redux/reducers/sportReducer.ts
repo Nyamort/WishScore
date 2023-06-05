@@ -1,7 +1,7 @@
 import {SPORT_CHANGED} from "../../constantes";
 
 export const initialState = {
-    selectedSport: 'foot',
+    selectedSport: undefined,
 }
 
 export default  function sportReducer (state = initialState, action) {
