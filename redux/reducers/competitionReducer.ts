@@ -1,14 +1,14 @@
-import {COMPETITION_CHANGED} from "../../constantes";
-
+import {COMPETITIONS_LOAD} from "../../constantes";
+import { COMPETITION_LIST } from "../../data/stub/stubCompetition";
 const initialState = {
-    competition: '',
+    competitions: COMPETITION_LIST,
   }
   
   export default  function competitionReducer (state = initialState, action) {
     switch (action.type) {
-        case COMPETITION_CHANGED:
-            initialState.competition = action.payload;
-            return {...state, selectedSport: initialState.competition};
+        case COMPETITIONS_LOAD:
+            state.competitions.push(action.competitions.filter(competition => !state.competitions.find(c => c.id === competition.id)));
+            return {...state};
         default:
             return state;
     }

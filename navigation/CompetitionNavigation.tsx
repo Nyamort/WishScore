@@ -8,35 +8,31 @@ import {Competition} from "../model/Competition";
 import ClassementScreen from "../screens/ClassementScreen";
 import EquipeScreen from "../screens/EquipeScreen";
 
-//@ts-ignore
-const CompetitionList: Competition[] = [
-    {title: "Ligue1", sport: "foot", id: 1},
-    {title: "Ligue2", sport: "foot", id: 2},
-    {title: "NBA", sport: "basket", id: 3},
-    {title: "Top14", sport: "rugby", id: 4},
-    {title: "Tournois des VI nation", sport: "rugby", id: 5},
-] as Competition[]
 
 export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
-    //@ts-ignore
+
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
 
-    const [data, setData] = useState(CompetitionList); // Liste complète des données
-    const [filteredData, setFilteredData] = useState([]); // Liste filtrée des données
+    const competitions = useSelector(state => state.competitionReducer.competitions);
+    const [filteredCompetition, setFilteredCompetition] = useState([]); // Liste filtrée des données
+
     const filterData = (filter) => {
-        const filtered = data.filter((item) => {
-            return item.sport == filter;
+        const filtered = competitions.filter((item) => {
+            return item.sportId == filter;
 
         });
-        setFilteredData(filtered);
+        setFilteredCompetition(filtered);
     };
+
     useEffect(() => {
+        console.log("CompetitionNavigation");
+
         filterData(selectedSport);
     }, [selectedSport]);
 
 
-    if (filteredData.length === 0) {
+    if (filteredCompetition.length === 0) {
         return (
             <></>
         )
@@ -49,10 +45,10 @@ export default function CompetitionNavigation() {
                     headerShown: false,
                 }}
             >
-                {props => <CompetitionScreen competitions={filteredData}></CompetitionScreen>}
+                {props => <CompetitionScreen competitions={filteredCompetition}></CompetitionScreen>}
             </Stack.Screen>
             <Stack.Screen name={"EquipeScreen"} component={EquipeScreen}/>
-            {filteredData.map((item) => (
+            {filteredCompetition.map((item) => (
                 <Stack.Screen
                     key={item.id}
                     name={item.title}

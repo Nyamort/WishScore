@@ -2,22 +2,25 @@ import {configureStore} from '@reduxjs/toolkit'
 import sportReducer from './reducers/sportReducer';
 import classementReducer from './reducers/classementReducer';
 import competitionReducer from './reducers/competitionReducer';
-import {useSelector} from 'react-redux';
-import { CLASSEMENT_LIST } from '../data/stub/stubClassement';
-import { EQUIPE_LIST } from '../data/stub/stubEquipe';
-import { FAVORI_LIST } from '../data/stub/stubFavori';
-import { MATCHLIST } from '../screens/MatchScreen';
-import { SPORT_LIST } from '../data/stub/stubSport';
-import { COMPETITION_LIST } from '../data/stub/stubCompetition';
+import equipeReducer from './reducers/equipeReducer';
+import matchReducer from './reducers/matchReducer';
+import favoriReducer from './reducers/favoriReducer';
 
 const reducer = {
     sportReducer: sportReducer,
     classementReducer: classementReducer,
     competitionReducer: competitionReducer,
+    equipeReducer: equipeReducer,
+    matchReducer: matchReducer,
+    favoriReducer: favoriReducer,
 }
 
 const store = configureStore({
     reducer,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    })
 });
 
 export default store;

@@ -1,14 +1,18 @@
-import {SPORT_CHANGED} from "../../constantes";
+import {SPORT_CHANGED, SPORT_LOAD} from "../../constantes";
+import { SPORT_LIST } from "../../data/stub/stubSport";
 
 export const initialState = {
-    selectedSport: 'foot',
+    selectedSport: undefined,
+    sports: SPORT_LIST
 }
 
-export default  function sportReducer (state = initialState, action) {
+export default function sportReducer (state = initialState, action) {
     switch (action.type) {
         case SPORT_CHANGED:
-            initialState.selectedSport = action.payload;
-            return {...state, selectedSport: initialState.selectedSport};
+            return {...state, selectedSport: action.payload};
+        case SPORT_LOAD:
+            state.sports.push(action.payload)
+            return {...state}
         default:
             return state;
     }
