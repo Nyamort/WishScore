@@ -5,6 +5,8 @@ import {useFocusEffect, useIsFocused, useNavigation} from "@react-navigation/nat
 import {useEffect, useState} from "react";
 import {Competition} from "../model/Competition";
 
+import {useSelector} from 'react-redux';
+
 type CompetitionScreenProps = {
     competitions: Competition[]
 }
@@ -27,10 +29,11 @@ export default function CompetitionScreen(props: CompetitionScreenProps) {
         setImage(list.find((item) => item.sport == props.competitions[0].sport).image);
     });
 
+    const competitionList = useSelector(state=>state.competitionReducer.competition);
     return (
         <ImageBackground source={image} style={{flex: 1}}>
             <FlatList
-                data={props.competitions}
+                data={competitionList}
                 renderItem={({item}) => <CompetitionListItem name={item.title}></CompetitionListItem>}
                 keyExtractor={item => item.id.toString()}
             />
