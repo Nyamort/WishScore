@@ -16,16 +16,11 @@ const tableHead = ['#', 'Equipe', 'Points', 'Matchs joués'];
 
 export default function ClassementScreen({navigation}) {
 
-    function onPressItem(index) {
-        console.log(classementScreen[index][1]);
-        navigation.navigate(EquipeScreen, {equipe: classementScreen[index][1].toString()});
-    }
-
     return (
         <Table>
             <Row data={tableHead} style={styles.header} textStyle={styles.headerText}/>
             {classementScreen.map((rowData, index) => (
-            <Pressable onPress={() => onPressItem(index)}>
+            <Pressable onPress={() => navigation.navigate("EquipeScreen", {"equipe": classementScreen[index][1]})}>
                 <Row key={rowData[0][0]} data={rowData} style={styles.row} textStyle={styles.text}/>
             </Pressable>
             ))}
