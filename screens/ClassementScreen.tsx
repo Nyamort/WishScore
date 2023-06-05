@@ -4,6 +4,7 @@ import {Table, Row} from 'react-native-table-component';
 import EquipeScreen from "./EquipeScreen";
 import {NavigationContainer} from "@react-navigation/native";
 
+import {useSelector} from 'react-redux';
 const classementScreen: any[] = [
     [1, 'FC Barcelone', 85, 35],
     [2, 'Real Madrid', 84, 35],
@@ -20,7 +21,9 @@ export default function ClassementScreen({navigation}) {
         console.log(classementScreen[index][1]);
         navigation.navigate(EquipeScreen, {equipe: classementScreen[index][1].toString()});
     }
-
+    // const MatchList = useSelector(state => state.matchReducer.match);
+    const classementList = useSelector(state => state.classementReducer.classement);
+    // console.log(classementList);
     return (
         <Table>
             <Row data={tableHead} style={styles.header} textStyle={styles.headerText}/>

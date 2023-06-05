@@ -1,12 +1,12 @@
-import {GET_CLASSEMENT} from "../../constantes";
-
+import {CLASSEMENT_CHANGED} from "../../constantes";
+import { CLASSEMENT_LIST } from "../../data/stub/stubClassement";
 const initialState = {
-    classement: [],
+    classement: CLASSEMENT_LIST,
   }
   
   export default  function classementReducer (state = initialState, action) {
     switch (action.type) {
-        case GET_CLASSEMENT:
+        case CLASSEMENT_CHANGED:
             initialState.classement = action.payload;
             return {...state, selectedSport: initialState.classement};
         default:

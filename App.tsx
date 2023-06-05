@@ -6,12 +6,13 @@ import {Provider} from "react-redux";
 
 export default function App() {
     return (
-        <Provider store={store}>
-            <SafeAreaProvider>
-                <Navigation/>
-            </SafeAreaProvider>
-        </Provider>
-
+        <>
+            <Provider store={store}>
+                <SafeAreaProvider>
+                    <Navigation/>
+                </SafeAreaProvider>
+            </Provider>
+        </>
     );
 }
 

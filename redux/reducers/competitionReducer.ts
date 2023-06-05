@@ -1,7 +1,7 @@
 import {COMPETITION_CHANGED} from "../../constantes";
-
+import { COMPETITION_LIST } from "../../data/stub/stubCompetition";
 const initialState = {
-    competition: '',
+    competition: COMPETITION_LIST,
   }
   
   export default  function competitionReducer (state = initialState, action) {
