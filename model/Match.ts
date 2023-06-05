@@ -3,4 +3,6 @@ export type Match = {
     equipe2Id: string
     score1: number
     score2: number
+    date_match: Date
+    competitionId: String
 }
