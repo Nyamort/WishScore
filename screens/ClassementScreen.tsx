@@ -23,7 +23,7 @@ export default function ClassementScreen({navigation, route}) {
 
 
     function onPressItem(equipe: Equipe) {
-        navigation.navigate(EquipeScreen, {equipe});
+        navigation.navigate("EquipeScreen", {"equipe": equipe});
     }
 
     // @ts-ignore

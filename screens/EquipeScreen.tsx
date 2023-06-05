@@ -20,7 +20,7 @@ export default function EquipeScreen({route}) {
 
         return (
             <View style={styles.body}>
-                <Text style={styles.title}>{route.params.equipe}</Text>
+                <Text style={styles.title}>{route.params.equipe.name}</Text>
                 <PageControlView style={styles.control} defaultPage={1}>
                     {data1.map((item) => {
                         return (
