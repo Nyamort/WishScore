@@ -10,6 +10,7 @@ export const MATCHLIST: MatchItemProps[] = [
 ]
 
 export default function MatchScreen() {
+    // @ts-ignore
     const MatchList = useSelector(state => state.matchReducer.match);
     const navigation = useNavigation();
     useEffect(() => {
