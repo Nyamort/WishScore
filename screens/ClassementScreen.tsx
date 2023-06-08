@@ -47,7 +47,7 @@ export default function ClassementScreen({navigation, route}) {
                     <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipe)}>
 
                         <Cell textStyle={styles.text} data={rowData.position}/>
-                        <Cell data={rowData.equipe.name}/>
+                        <Cell textStyle={styles.text} data={rowData.equipe.name}/>
                         <Cell textStyle={styles.text} data={rowData.nombrePoints}/>
                         <Cell textStyle={styles.text} data={rowData.matchJoue}/>
                     </Pressable>

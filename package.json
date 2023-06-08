@@ -23,6 +23,8 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.71.7",
+    "react-native-animated-pagination-dot": "^0.4.0",
+    "react-native-drop-shadow": "^0.0.7",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-ios-kit": "^0.0.22",

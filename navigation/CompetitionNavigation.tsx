@@ -12,8 +12,10 @@ import EquipeScreen from "../screens/EquipeScreen";
 export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
 
+    // @ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
 
+    // @ts-ignore
     const competitions = useSelector(state => state.competitionReducer.competitions);
     const [filteredCompetition, setFilteredCompetition] = useState([]); // Liste filtrée des données
 
