@@ -5,5 +5,5 @@ export type Match = {
     score1: number
     score2: number
     date_match: Date
-    competitionId: String
+    competitionId: string
 }
