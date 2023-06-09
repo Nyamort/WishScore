@@ -7,3 +7,4 @@ export const EQUIPE_LIST: Equipe[] = [
     { name: "FC Seville", id: "3" },
     { name: "Real Sociedad", id: "4" },
 ]
+

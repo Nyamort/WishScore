@@ -4,32 +4,32 @@ import {PageControlView} from 'react-native-ios-kit';
 import React, {useEffect, useState} from "react";
 
 import {useSelector} from 'react-redux';
+import {Match} from "../model/Match";
+import {EQUIPE_LIST} from "../data/stub/stubEquipe";
 
 
 export default function EquipeScreen({route}) {
     const max = 7;
+    let cpt = 0;
     // @ts-ignore
-    const equipeList = useSelector(state => state.equipeReducer.equipe);
-        //TODO
-    const data1 = [
-        {id:1, equipe1: 'FC Barcelone', equipe2: 'Paris', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'},
-        {id:2, equipe1: 'Lyon', equipe2: 'FC Barcelone', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'},
-        {id:3, equipe1: 'FC Barcelone', equipe2: 'Paris', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'},
-        {id:4, equipe1: 'FC Barcelone', equipe2: 'Paris', score1: 1, score2: 1, date: new Date(), competition: 'RocketLeague'},
-        {id:5, equipe1: 'Lyon', equipe2: 'FC Barcelone', score1: 1, score2: 0, date: new Date(), competition: 'RocketLeague'}];
+    const equipeList = useSelector(state => state.equipeReducer.equipes);
+    // @ts-ignore
+    const matchList = useSelector(state => state.matchReducer.match);
+    let matchs = matchList.filter((match: Match) => match.equipe1Id === route.params.equipe.id || match.equipe2Id === route.params.equipe.id);
+    matchs = matchs.slice(0,10);
     const [victoire, setVictoire] = useState(0);
     const [defaite, setDefaite] = useState(0);
     const [nul, setNul] = useState(0);
     let win = 0;
     let loose = 0;
     let matchNul = 0;
-    data1.forEach((item) => {
+    matchs.forEach((item) => {
         if(item.score1==item.score2){
             matchNul++;
         }
-        else if (item.equipe1 === route.params.equipe.name && item.score1 > item.score2) {
+        else if (item.equipe1Id === route.params.equipe.id && item.score1 > item.score2) {
             win++;
-        } else if (item.equipe2 === route.params.equipe.name && item.score2 > item.score1) {
+        } else if (item.equipe2Id === route.params.equipe.id && item.score2 > item.score1) {
             win++;
         }
         else{
@@ -45,21 +45,26 @@ export default function EquipeScreen({route}) {
     if(matchNul!=nul){
         setNul(matchNul);
     }
-    return (
-        <ImageBackground source={require('../assets/images/backgroundImage.png')}  style={styles.body}>
+    return (<View style={styles.body}>
             <Text style={styles.title}>{route.params.equipe.name}</Text>
             <View style={styles.pageControl}>
                 <PageControlView style={styles.control} defaultPage={1}>
-                    {data1.map((item) => {
+                    {matchs.map((item,key) => {
+                        console.log(item);
+                        console.log(key);
+                        let name1 = equipeList.find((equipe) => equipe.id === item.equipe1Id).name;
+                        let name2 = equipeList.find((equipe) => equipe.id === item.equipe2Id).name;
                         return (
-                            <>
-                                <Pressable onPress={() => {console.log("press" + item.id)}} style={styles.container}>
+                            <View key={key}>
+                                <Pressable onPress={() => {console.log("press" + item.id)}} style={styles.container} >
                                     <View style={styles.header}>
-                                        {item.equipe1.length > max ? <Text style={styles.headerDetail}>{item.equipe1.substring(0,max)+'..'}</Text>:
-                                            <Text style={styles.headerDetail}>{item.equipe1}</Text>}
+                                        {name1.length > max ? <Text style={styles.headerDetail}>
+                                                {name1.substring(0,max)+'..'}</Text>:
+                                            <Text style={styles.headerDetail}>{name1}</Text>}
                                         <Text></Text>
-                                        {item.equipe2.length > max ? <Text style={styles.headerDetail}>{item.equipe2.substring(0,max)+'..'}</Text>:
-                                            <Text style={styles.headerDetail}>{item.equipe2}</Text>}
+                                        {name2.length > max ? <Text style={styles.headerDetail}>
+                                                {name2.substring(0,max)+'..'}</Text>:
+                                            <Text style={styles.headerDetail}>{name2}</Text>}
                                     </View>
                                     <View style={styles.score}>
                                         <Text style={styles.scoreDetail}>{item.score1}</Text>
@@ -67,7 +72,7 @@ export default function EquipeScreen({route}) {
                                         <Text style={styles.scoreDetail}>{item.score2}</Text>
                                     </View>
                                     <View style={styles.date}>
-                                        <Text> {item.date.toLocaleDateString('fr')}</Text>
+                                        <Text> {item.date_match.toLocaleDateString('fr')}</Text>
                                     </View>
                                 </Pressable>
 
@@ -77,24 +82,24 @@ export default function EquipeScreen({route}) {
                                         <View style={styles.CircleShapeWin}/> :
                                         item.score1 == item.score2 ? <View style={styles.CircleShapeNul}/> : <View style={styles.CircleShapeLoose}/>}
                                 </View>
-                            </>
+                            </View>
                         );
                     })}
                 </PageControlView>
             </View>
-                <Text style={styles.title}>Statistiques{"\n"}</Text>
-                <View style={styles.stats}>
-                    <View style={styles.statContainer}>
-                        <Text style={styles.statDetail}>Victoires : {victoire}</Text>
-                        <Text style={styles.statDetail}>Défaites : {defaite}</Text>
-                        <Text style={styles.statDetail}>Match nul : {nul}</Text>
-                    </View>
-                    <View style={styles.statContainer}>
-                        <Text style={styles.statDetail}>Total de matchs : {defaite+victoire+nul}</Text>
-                        <Text style={styles.statDetail}>Nombre de points : {victoire*3+nul}</Text>
-                    </View>
+            <Text style={styles.title}>Statistiques{"\n"}</Text>
+            <View style={styles.stats}>
+                <View style={styles.statContainer}>
+                    <Text style={styles.statDetail}>Victoires : {victoire}</Text>
+                    <Text style={styles.statDetail}>Défaites : {defaite}</Text>
+                    <Text style={styles.statDetail}>Match nul : {nul}</Text>
                 </View>
-        </ImageBackground>
+                <View style={styles.statContainer}>
+                    <Text style={styles.statDetail}>Total de matchs : {defaite+victoire+nul}</Text>
+                    <Text style={styles.statDetail}>Nombre de points : {victoire*3+nul}</Text>
+                </View>
+            </View>
+        </View>
     );
     }
 
@@ -142,7 +147,7 @@ export default function EquipeScreen({route}) {
             marginTop: 50,
             fontSize: 30,
             fontWeight: 'bold',
-            color: '#FFF',
+            color: '#000',
         },
         stats: {
           width: '100%',
@@ -151,7 +156,7 @@ export default function EquipeScreen({route}) {
             flexDirection: 'row',
         },
         statDetail: {
-          color: '#FFF',
+          color: '#000',
             padding: 10,
         },
         statContainer: {

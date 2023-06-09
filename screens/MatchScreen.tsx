@@ -13,6 +13,7 @@ export default function MatchScreen() {
     // @ts-ignore
     const MatchList = useSelector(state => state.matchReducer.match);
     const navigation = useNavigation();
+
     useEffect(() => {
         navigation.getParent().setOptions({
             headerShown: false,
