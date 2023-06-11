@@ -2,6 +2,7 @@ import {StyleSheet, Text, Pressable} from 'react-native'
 import React from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Competition} from "../model/Competition";
+import { EvilIcons } from '@expo/vector-icons';
 
 type CompetitionListProps = {
     competition: Competition
@@ -13,8 +14,9 @@ export default function CompetitionListItem(props : CompetitionListProps) {
     const navigation = useNavigation();
 
     return (
-        <Pressable style={styles.container} onPress={() => navigation.navigate(competition.title as any,{competition: competition})}>
-            <Text>{competition.title}</Text>
+        <Pressable style={styles.container} onPress={() => navigation.navigate('competition',{competition: competition})}>
+            <Text style={styles.text}>{competition.title}</Text>
+            <EvilIcons name={'chevron-right'} size={40} color={'#0f2d37'}/>
         </Pressable>
     );
 }
@@ -22,15 +24,15 @@ export default function CompetitionListItem(props : CompetitionListProps) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        fontSize: 24,
-        margin: 5,
-        padding: 5,
-        borderRadius: 15,
-        borderColor: "black",
-        borderWidth: 1,
-        textAlign: "center",
-        alignItems: 'center',
-        justifyContent: 'center'
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    text: {
+        fontSize: 20,
+        color: '#0f2d37',
+        fontWeight: '500',
     }
 });

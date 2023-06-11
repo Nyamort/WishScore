@@ -37,7 +37,12 @@ export default function CompetitionNavigation() {
         )
     }
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: styles.headerStyle,
+                headerTitleStyle: styles.headerTitleStyle,
+                headerTintColor: 'white',
+            }}>
             <Stack.Screen
                 name="List"
                 options={{
@@ -47,13 +52,10 @@ export default function CompetitionNavigation() {
                 {props => <CompetitionScreen competitions={filteredCompetition}></CompetitionScreen>}
             </Stack.Screen>
             <Stack.Screen name={"EquipeScreen"} component={EquipeScreen}/>
-            {filteredCompetition.map((item) => (
-                <Stack.Screen
-                    key={item.id}
-                    name={item.title}
-                    component={ClassementScreen}
-                />
-            ))}
+            <Stack.Screen
+                name="competition"
+                component={ClassementScreen}
+            />
         </Stack.Navigator>
 
     )
@@ -68,5 +70,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
 
-    button: {}
+    headerStyle: {
+        backgroundColor: '#0f2d37',
+    },
+    headerTitleStyle: {
+        color: 'white',
+    }
 });

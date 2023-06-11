@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text} from "react-native";
+import {Pressable, ScrollView, StyleSheet, Text} from "react-native";
 import React, {useEffect} from "react";
 import {Table, Row, TableWrapper, Cell} from 'react-native-table-component';
 import {useSelector} from "react-redux";
@@ -6,18 +6,18 @@ import {Classement} from "../model/Classement";
 import {Equipe} from "../model/Equipe";
 import EquipeScreen from "./EquipeScreen";
 
-const tableHead = ['#', 'Equipe', 'Points', 'Matchs joués'];
+const tableHead = ['#', 'Equipe', 'P', 'MJ'];
 
 export default function ClassementScreen({navigation, route}) {
-
     const competition = route.params.competition;
-
-    // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
 
     useEffect(() => {
         navigation.getParent().setOptions({
             headerShown: false,
+        });
+        navigation.setOptions({
+            headerTitle: competition.title,
         });
     }, [])
 
@@ -40,20 +40,23 @@ export default function ClassementScreen({navigation, route}) {
 
 
     return (
-        <Table>
-            <Row data={tableHead} style={styles.header} textStyle={styles.headerText}/>
-            {
-                classements.map((rowData, index) => (
-                    <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipe)}>
+        <Table style={styles.table}>
+            <Row data={tableHead} widthArr={[40,250, 55,55]} style={styles.header} textStyle={styles.headerText}/>
 
-                        <Cell textStyle={styles.text} data={rowData.position}/>
-                        <Cell textStyle={styles.text} data={rowData.equipe.name}/>
-                        <Cell textStyle={styles.text} data={rowData.nombrePoints}/>
-                        <Cell textStyle={styles.text} data={rowData.matchJoue}/>
-                    </Pressable>
+            <ScrollView>
+                {
+                    classements.map((rowData, index) => (
+                        <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipe)}>
 
-                ))
-            }
+                            <Cell width={40} textStyle={styles.text} data={rowData.position}/>
+                            <Cell width={250} textStyle={styles.text} data={rowData.equipe.name}/>
+                            <Cell textStyle={styles.text} data={rowData.nombrePoints}/>
+                            <Cell textStyle={styles.text} data={rowData.matchJoue}/>
+                        </Pressable>
+
+                    ))
+                }
+            </ScrollView>
         </Table>
     );
 }
@@ -61,20 +64,27 @@ export default function ClassementScreen({navigation, route}) {
 const styles = StyleSheet.create({
     header: {
         height: 50,
-        backgroundColor: '#f1f8ff',
+        backgroundColor: '#e8e8e8',
     },
 
     headerText: {
-        textAlign: 'center',
+        textAlign: 'left',
         fontWeight: 'bold',
+        paddingLeft: 10,
+        paddingRight: 10,
+    },
+    table: {
+        backgroundColor: '#ffffff',
+        height: '100%',
     },
     row: {
         height: 40,
-        backgroundColor: '#ffffff',
         flexDirection: 'row',
         display: 'flex',
     },
     text: {
-        textAlign: 'center',
+        textAlign: 'left',
+        paddingLeft: 10,
+        paddingRight: 10,
     }
 });

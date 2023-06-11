@@ -4,7 +4,6 @@ import TabBarIcon from "../components/TabBarIcon";
 import { StyleSheet} from "react-native";
 import SportHeader from "../components/SportHeader";
 import CompetitionNavigation from "./CompetitionNavigation";
-import EquipeScreen from "../screens/EquipeScreen";
 
 
 export default function Navigation(){
@@ -16,7 +15,9 @@ export default function Navigation(){
                                            component={CompetitionNavigation}
                                            options={{
                                                title: 'Accueil',
-                                               tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
+                                               tabBarItemStyle: styles.tabBarStyle,
+                                               tabBarLabelStyle: styles.tabBarLabelStyle,
+                                               tabBarIcon: () => <TabBarIcon name="home" color={'white'}/>,
                                                headerRight: () => <SportHeader/>,
                                                headerStyle: styles.headerStyle,
                                                headerTitleStyle: styles.headerTitleStyle,
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#0f2d37',
     },
     headerTitleStyle: {
+        color: 'white',
+    },
+    tabBarStyle: {
+        backgroundColor: '#0f2d37',
+    },
+    tabBarLabelStyle: {
         color: 'white',
     }
 });
