@@ -18,6 +18,8 @@ export default function Navigation(){
                                                title: 'Accueil',
                                                tabBarIcon: ({color}) => <TabBarIcon name="home" color={color}/>,
                                                headerRight: () => <SportHeader/>,
+                                               headerStyle: styles.headerStyle,
+                                               headerTitleStyle: styles.headerTitleStyle,
                                            }}/>
             </BottomTabNavigator.Navigator>
         </NavigationContainer>
@@ -26,4 +28,10 @@ export default function Navigation(){
 
 
 const styles = StyleSheet.create({
+    headerStyle: {
+        backgroundColor: '#0f2d37',
+    },
+    headerTitleStyle: {
+        color: 'white',
+    }
 });

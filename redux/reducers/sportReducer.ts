@@ -2,7 +2,7 @@ import {SPORT_CHANGED, SPORT_LOAD} from "../../constantes";
 import { SPORT_LIST } from "../../data/stub/stubSport";
 
 export const initialState = {
-    selectedSport: undefined,
+    selectedSport: SPORT_LIST[0],
     sports: SPORT_LIST
 }
 

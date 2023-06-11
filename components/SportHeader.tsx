@@ -1,33 +1,45 @@
-import DropDownPicker from "react-native-dropdown-picker";
-import {StyleSheet, View} from "react-native";
-import {useEffect, useState} from "react";
+import {Button, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {SPORT_CHANGED} from "../constantes";
-import {initialState} from "../redux/reducers/sportReducer";
+import {BottomSheetFlatList, BottomSheetModal, useBottomSheetModal} from "@gorhom/bottom-sheet";
+import {SportModalItem} from "./SportModalItem";
+import {SportModalHeader} from "./SportModalHeader";
+import {FontAwesome} from "@expo/vector-icons";
+import {Sport} from "../model/Sport";
 
 export default function SportHeader() {
-    const dispatch = useDispatch();
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
-    const sports = useSelector(state => state.sportReducer.sports);
-    const [value, setValue] = useState(selectedSport);
-    const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        dispatch({type: SPORT_CHANGED, payload: value});
-    }, [value]);
+    const sports = useSelector(state => state.sportReducer.sports) as Sport[];
+    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+    const snapPoints = useMemo(() => ['50%', '75%'], []);
+    const handlePresentModalPress = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
+    const {dismiss} = useBottomSheetModal();
+    const close = () => {
+        dismiss();
+    }
 
     return (
         <View style={styles.container}>
-            <DropDownPicker
-                open={open}
-                value={value}
-                items={sports}
-                schema={{
-                    label: 'label',
-                    value: 'id',
-                }}
-                setOpen={setOpen}
-                setValue={setValue}/>
+            <Pressable style={styles.selectionButton} onPress={handlePresentModalPress}>
+                <FontAwesome name={"caret-down"} size={30} color="white"/>
+                <Text style={styles.selectedSport}>{selectedSport.label}</Text>
+            </Pressable>
+            <BottomSheetModal
+                ref={bottomSheetModalRef}
+                index={0}
+                snapPoints={snapPoints}
+            >
+                <BottomSheetFlatList data={sports}
+                                     ListHeaderComponent={elt => <SportModalHeader close={close}/>}
+                                     stickyHeaderIndices={[0]}
+                                     contentContainerStyle={styles.sports}
+                                     renderItem={({item}) => <SportModalItem sport={item}
+                                                                             isSelected={selectedSport.id === item.id}
+                                                                             selectionChange={close}/>}
+                                     keyExtractor={(item) => item.id.toString()}></BottomSheetFlatList>
+            </BottomSheetModal>
         </View>
     );
 }
@@ -37,9 +49,21 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         width: "100%",
-        alignItems: 'flex-end',
-        justifyContent: 'space-between'
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingRight: 20,
     },
-
-    button: {}
+    sports: {
+        paddingLeft: 20,
+        gap: 10,
+        paddingBottom: 10,
+    },
+    selectionButton: {
+        flexDirection: "row",
+        gap: 10,
+    },
+    selectedSport: {
+        color: "white",
+        fontSize: 20,
+    }
 });

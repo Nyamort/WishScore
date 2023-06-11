@@ -4,7 +4,6 @@ import MatchScreen from "../screens/MatchScreen";
 import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import CompetitionScreen from "../screens/CompetitionScreen";
-import {Competition} from "../model/Competition";
 import ClassementScreen from "../screens/ClassementScreen";
 import EquipeScreen from "../screens/EquipeScreen";
 
@@ -21,15 +20,13 @@ export default function CompetitionNavigation() {
 
     const filterData = (filter) => {
         const filtered = competitions.filter((item) => {
-            return item.sportId == filter;
+            return item.sportId == filter.id;
 
         });
         setFilteredCompetition(filtered);
     };
 
     useEffect(() => {
-        console.log("CompetitionNavigation");
-
         filterData(selectedSport);
     }, [selectedSport]);
 
