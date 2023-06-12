@@ -20,6 +20,8 @@ export default function SportHeader() {
         dismiss();
     }
 
+    const favoriteSports = useSelector(state => state.favoriReducer.favoris.sports) as Sport[];
+
     return (
         <View style={styles.container}>
             <Pressable style={styles.selectionButton} onPress={handlePresentModalPress}>
@@ -36,9 +38,10 @@ export default function SportHeader() {
                                      stickyHeaderIndices={[0]}
                                      contentContainerStyle={styles.sports}
                                      renderItem={({item}) => <SportModalItem sport={item}
+                                                                             isFavorite={favoriteSports.find(favSport => favSport.id === item.id) !== undefined}
                                                                              isSelected={selectedSport.id === item.id}
                                                                              selectionChange={close}/>}
-                                     keyExtractor={(item) => item.id.toString()}></BottomSheetFlatList>
+                ></BottomSheetFlatList>
             </BottomSheetModal>
         </View>
     );
@@ -55,6 +58,7 @@ const styles = StyleSheet.create({
     },
     sports: {
         paddingLeft: 20,
+        paddingRight: 20,
         gap: 10,
         paddingBottom: 10,
     },
