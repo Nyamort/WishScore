@@ -10,6 +10,7 @@ import {ClassementHeader} from "../components/ClassementHeader";
 
 export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
+    //@ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
 
 
