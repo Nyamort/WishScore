@@ -17,7 +17,7 @@ export default function ClassementScreen({navigation, route}) {
             headerShown: false,
         });
         navigation.setOptions({
-            headerTitle: competition.title,
+            headerTitle: competition.label,
         });
     }, [])
 

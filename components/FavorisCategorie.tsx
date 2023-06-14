@@ -13,7 +13,7 @@ export function FavorisCategorie(props: FavorisCategorieProps){
             <FlatList
                 data={props.favoris}
                 contentContainerStyle={styles.list}
-                renderItem={({item}) => <FavoriItem favori={item}/>}
+                renderItem={({item}) => <FavoriItem favori={item} categorie={props.categorie}/>}
                 ListEmptyComponent={() => <Text style={styles.emptyFavoris}>Aucun favori</Text>}
             />
         </View>

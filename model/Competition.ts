@@ -1,5 +1,5 @@
 export type Competition = {
-    title: string
+    label: string
     sportId: string
     id: string
 }

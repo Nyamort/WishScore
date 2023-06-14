@@ -23,8 +23,8 @@ export function FavoriScreen() {
     return (
         <View style={styles.container}>
             <FavorisCategorie categorie="Sport" favoris={favoris.sports}/>
-            <FavorisCategorie categorie="Competition" favoris={favoris.competition}/>
-            <FavorisCategorie categorie="Equipe" favoris={favoris.teams}/>
+            <FavorisCategorie categorie="Compétition" favoris={favoris.competition}/>
+            <FavorisCategorie categorie="Équipe" favoris={favoris.teams}/>
         </View>
     )
 }
