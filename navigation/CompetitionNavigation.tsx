@@ -31,7 +31,7 @@ export default function CompetitionNavigation() {
             </Stack.Screen>
             <Stack.Screen name={"EquipeScreen"} component={EquipeScreen}/>
             <Stack.Screen
-                name="competition"
+                name="classement"
                 component={ClassementScreen}
                 options={{
                     headerRight: () => <ClassementHeader/>

@@ -14,8 +14,8 @@ export default function CompetitionListItem(props : CompetitionListProps) {
     const navigation = useNavigation();
 
     return (
-        <Pressable style={styles.container} onPress={() => navigation.navigate('competition',{competition: competition})}>
-            <Text style={styles.text}>{competition.title}</Text>
+        <Pressable style={styles.container} onPress={() => navigation.navigate('classement',{competition: competition})}>
+            <Text style={styles.text}>{competition.label}</Text>
             <EvilIcons name={'chevron-right'} size={40} color={'#0f2d37'}/>
         </Pressable>
     );

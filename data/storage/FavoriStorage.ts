@@ -69,3 +69,34 @@ export const removeFavoriTeam = async (team) => {
     }
 }
 
+export const getFavorisCompetition = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem('@favoris_competitions')
+        return jsonValue != null ? JSON.parse(jsonValue) : [];
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const addFavoriCompetition = async (competition) => {
+    try {
+        const favoris = await getFavorisCompetition();
+        favoris.push(competition);
+        await AsyncStorage.setItem('@favoris_competitions', JSON.stringify(favoris))
+        return competition;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const removeFavoriCompetition = async (competition) => {
+    try {
+        const favoris = await getFavorisCompetition();
+        const newFavoris = favoris.filter(f => f.id !== competition.id);
+        await AsyncStorage.setItem('@favoris_competitions', JSON.stringify(newFavoris))
+        return competition;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
