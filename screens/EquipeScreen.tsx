@@ -48,7 +48,8 @@ export default function EquipeScreen({route}) {
     return (<View style={styles.body}>
             <Text style={styles.title}>{route.params.equipe.name}</Text>
             <View style={styles.pageControl}>
-                <PageControlView style={styles.control} defaultPage={1}>
+                <PageControlView style={styles.control} defaultPage={1}
+                >
                     {matchs.map((item,key) => {
                         console.log(item);
                         console.log(key);

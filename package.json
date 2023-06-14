@@ -33,7 +33,7 @@
     "react-native-reanimated": "~2.14.4",
     "react-native-safe-area-context": "4.5.0",
     "react-native-swiper-flatlist": "^3.2.2",
-    "react-native-table-component": "^1.2.2",
+    "react-native-table-component": "https://github.com/slice312/react-native-table-component.git",
     "react-native-web": "~0.18.11",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1"
