@@ -1,16 +1,14 @@
-import {ImageBackground, Pressable} from "react-native";
+import { Pressable} from "react-native";
 import {StyleSheet, Text, View} from "react-native";
 import {PageControlView} from 'react-native-ios-kit';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import {useSelector} from 'react-redux';
 import {Match} from "../model/Match";
-import {EQUIPE_LIST} from "../data/stub/stubEquipe";
 
 
 export default function EquipeScreen({route}) {
     const max = 7;
-    let cpt = 0;
     // @ts-ignore
     const equipeList = useSelector(state => state.equipeReducer.equipes);
     // @ts-ignore
