@@ -10,6 +10,7 @@ import {ClassementHeader} from "../components/ClassementHeader";
 
 export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
+    // @ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
 
 
@@ -19,7 +20,7 @@ export default function CompetitionNavigation() {
                 headerStyle: styles.headerStyle,
                 headerTitleStyle: styles.headerTitleStyle,
                 headerTintColor: 'white',
-                gestureEnabled: true,
+                gestureEnabled: false,
             }}>
             <Stack.Screen
                 name="listCompetition"

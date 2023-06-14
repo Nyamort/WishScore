@@ -4,7 +4,6 @@ import {StyleSheet} from "react-native";
 import SportHeader from "../components/SportHeader";
 import CompetitionNavigation from "./CompetitionNavigation";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import FavoriNavigation from "./FavoriNavigation";
 import {FavoriScreen} from "../screens/FavoriScreen";
 
 

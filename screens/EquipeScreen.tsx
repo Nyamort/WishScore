@@ -63,7 +63,8 @@ export default function EquipeScreen({route}) {
               sliderWidth={SLIDER_WIDTH}
               itemWidth={ITEM_WIDTH}
               inactiveSlideShift={0}
-              useScrollView={true}
+              useScrollView={false}
+
             />
             : <></>
         }
