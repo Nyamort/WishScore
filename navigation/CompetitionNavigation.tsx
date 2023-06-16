@@ -1,6 +1,6 @@
 import {createStackNavigator} from "@react-navigation/stack";
-import {StyleSheet} from "react-native";
-import React from "react";
+import {Platform, StyleSheet} from "react-native";
+import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import CompetitionScreen from "../screens/CompetitionScreen";
 import ClassementScreen from "../screens/ClassementScreen";
@@ -12,7 +12,17 @@ export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
     //@ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
-
+    const [gesture, setGesture] = useState(false);
+    useEffect(
+        () => {
+            if(Platform.OS == "ios"){
+                setGesture(true);
+            }
+            else{
+                setGesture(false);
+            }
+        }
+    )
 
     return (
         <Stack.Navigator
@@ -20,7 +30,7 @@ export default function CompetitionNavigation() {
                 headerStyle: styles.headerStyle,
                 headerTitleStyle: styles.headerTitleStyle,
                 headerTintColor: 'white',
-                gestureEnabled: true,
+                gestureEnabled: gesture,
             }}>
             <Stack.Screen
                 name="listCompetition"
