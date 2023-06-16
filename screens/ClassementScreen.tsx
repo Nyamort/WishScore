@@ -24,7 +24,7 @@ export default function ClassementScreen({navigation, route}) {
 
 
     function onPressItem(equipe: Equipe) {
-        navigation.navigate("EquipeScreen", {"id": equipe.id});
+        navigation.navigate("EquipeScreen", {"id": equipe.id,"name": equipe.name});
     }
 
     // @ts-ignore
