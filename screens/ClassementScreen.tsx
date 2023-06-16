@@ -10,6 +10,7 @@ const tableHead = ['#', 'Equipe', 'P', 'MJ'];
 
 export default function ClassementScreen({navigation, route}) {
     const competition = route.params.competition;
+    // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function ClassementScreen({navigation, route}) {
 
 
     function onPressItem(equipe: Equipe) {
-        navigation.navigate("EquipeScreen", {"equipe": equipe});
+        navigation.navigate("EquipeScreen", {"id": equipe.id});
     }
 
     // @ts-ignore

@@ -1,14 +1,17 @@
 import { Pressable} from "react-native";
 import {StyleSheet, Text, View} from "react-native";
 import {PageControlView} from 'react-native-ios-kit';
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
+import Carousel from 'react-native-snap-carousel'
 
 import {useSelector} from 'react-redux';
 import {Match} from "../model/Match";
+import MatchList, {ITEM_WIDTH, SLIDER_WIDTH} from "../components/MatchList";
 
 
 export default function EquipeScreen({route}) {
     const max = 7;
+    const isCarousel = useRef(null)
     // @ts-ignore
     const equipeList = useSelector(state => state.equipeReducer.equipes);
     // @ts-ignore
@@ -46,45 +49,27 @@ export default function EquipeScreen({route}) {
     return (<View style={styles.body}>
             <Text style={styles.title}>{route.params.equipe.name}</Text>
             <View style={styles.pageControl}>
-                <PageControlView style={styles.control} defaultPage={1}
-                >
-                    {matchs.map((item,key) => {
-                        console.log(item);
-                        console.log(key);
-                        let name1 = equipeList.find((equipe) => equipe.id === item.equipe1Id).name;
-                        let name2 = equipeList.find((equipe) => equipe.id === item.equipe2Id).name;
-                        return (
-                            <View key={key}>
-                                <Pressable onPress={() => {console.log("press" + item.id)}} style={styles.container} >
-                                    <View style={styles.header}>
-                                        {name1.length > max ? <Text style={styles.headerDetail}>
-                                                {name1.substring(0,max)+'..'}</Text>:
-                                            <Text style={styles.headerDetail}>{name1}</Text>}
-                                        <Text></Text>
-                                        {name2.length > max ? <Text style={styles.headerDetail}>
-                                                {name2.substring(0,max)+'..'}</Text>:
-                                            <Text style={styles.headerDetail}>{name2}</Text>}
-                                    </View>
-                                    <View style={styles.score}>
-                                        <Text style={styles.scoreDetail}>{item.score1}</Text>
-                                        <Text style={styles.tiret}>-</Text>
-                                        <Text style={styles.scoreDetail}>{item.score2}</Text>
-                                    </View>
-                                    <View style={styles.date}>
-                                        <Text> {item.date_match.toLocaleDateString('fr')}</Text>
-                                    </View>
-                                </Pressable>
+                {
+                    equipeList ?
+                        <Carousel
+                            layout="tinder"
+                            layoutCardOffset={9}
+                            ref={isCarousel}
+                            data={matchs}
+                            renderItem={(info) => {
+                                let name1 = equipeList.find((equipe) => equipe.id === info.item.equipe1Id).name;
+                                let name2 = equipeList.find((equipe) => equipe.id === info.item.equipe2Id).name;
+                                return <MatchList item={info.item} nameID={route.params.equipe.id} name1={name1} name2={name2}/>
+                            }
+                            }
+                            sliderWidth={SLIDER_WIDTH}
+                            itemWidth={ITEM_WIDTH}
+                            inactiveSlideShift={0}
+                            useScrollView={false}
 
-                                <View style={{display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
-                                    {item.equipe1 === route.params.equipe.name && item.score1 > item.score2 ||
-                                    item.equipe2 === route.params.equipe.name && item.score2 > item.score1 ?
-                                        <View style={styles.CircleShapeWin}/> :
-                                        item.score1 == item.score2 ? <View style={styles.CircleShapeNul}/> : <View style={styles.CircleShapeLoose}/>}
-                                </View>
-                            </View>
-                        );
-                    })}
-                </PageControlView>
+                        />
+                        : <></>
+                }
             </View>
             <Text style={styles.title}>Statistiques{"\n"}</Text>
             <View style={styles.stats}>
