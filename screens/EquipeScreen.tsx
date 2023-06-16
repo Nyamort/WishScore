@@ -47,13 +47,12 @@ export default function EquipeScreen({route}) {
         setNul(matchNul);
     }
     return (<View style={styles.body}>
-            <Text style={styles.title}>{route.params.id}</Text>
+            <Text style={styles.title}>{route.params.name}</Text>
             <View style={styles.pageControl}>
                 {
                     equipeList ?
                         <Carousel
                             layout="tinder"
-                            layoutCardOffset={9}
                             ref={isCarousel}
                             data={matchs}
                             renderItem={(info) => {
