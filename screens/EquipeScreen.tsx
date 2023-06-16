@@ -16,7 +16,7 @@ export default function EquipeScreen({route}) {
     const equipeList = useSelector(state => state.equipeReducer.equipes);
     // @ts-ignore
     const matchList = useSelector(state => state.matchReducer.match);
-    let matchs = matchList.filter((match: Match) => match.equipe1Id === route.params.equipe.id || match.equipe2Id === route.params.equipe.id);
+    let matchs = matchList.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id);
     matchs = matchs.slice(0,10);
     const [victoire, setVictoire] = useState(0);
     const [defaite, setDefaite] = useState(0);
@@ -28,9 +28,9 @@ export default function EquipeScreen({route}) {
         if(item.score1==item.score2){
             matchNul++;
         }
-        else if (item.equipe1Id === route.params.equipe.id && item.score1 > item.score2) {
+        else if (item.equipe1Id === route.params.id && item.score1 > item.score2) {
             win++;
-        } else if (item.equipe2Id === route.params.equipe.id && item.score2 > item.score1) {
+        } else if (item.equipe2Id === route.params.id && item.score2 > item.score1) {
             win++;
         }
         else{
@@ -47,7 +47,7 @@ export default function EquipeScreen({route}) {
         setNul(matchNul);
     }
     return (<View style={styles.body}>
-            <Text style={styles.title}>{route.params.equipe.name}</Text>
+            <Text style={styles.title}>{route.params.id}</Text>
             <View style={styles.pageControl}>
                 {
                     equipeList ?
@@ -59,7 +59,7 @@ export default function EquipeScreen({route}) {
                             renderItem={(info) => {
                                 let name1 = equipeList.find((equipe) => equipe.id === info.item.equipe1Id).name;
                                 let name2 = equipeList.find((equipe) => equipe.id === info.item.equipe2Id).name;
-                                return <MatchList item={info.item} nameID={route.params.equipe.id} name1={name1} name2={name2}/>
+                                return <MatchList item={info.item} nameID={route.params.id} name1={name1} name2={name2}/>
                             }
                             }
                             sliderWidth={SLIDER_WIDTH}
