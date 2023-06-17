@@ -10,7 +10,19 @@ describe('matchReducer', () => {
         }
       }
       it('should handle FAVORIS_SPORT_LOAD action', () => {
-
+        const favoris = {
+            sports: ['Tennis', 'Football'],
+            teams: [],
+            competition: []
+          };
+          const action = {
+            type: 'FAVORIS_SPORT_LOAD',
+            payload: favoris
+          };
+      
+          const nextState = favoriReducer(initialState, action);
+      
+          expect(nextState.favoris).toEqual(favoris);
       });
       it('should handle FAVORI_SPORT_ADD action', () => {
         const sport = 'Tennis';

@@ -2,7 +2,7 @@ import matchReducer from "../../redux/reducers/matchReducer";
 import { MATCH_LIST } from "../../data/stub/stubMatch";
 
 describe('matchReducer', () => {
-    it('should return stubValue', () => {
+    it('should handle default action', () => {
       const expectedState = {
         match: MATCH_LIST
       };

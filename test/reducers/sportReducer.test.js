@@ -6,7 +6,19 @@ describe('sportReducer', () => {
         selectedSport: SPORT_LIST[0],
         sports: SPORT_LIST
     }
-    it('should return stubValue by default', () => {
+    it('should handle SPORT_LOAD action', () => {
+      const sportToAdd = 'Basketball';
+      const action = {
+        type: 'SPORT_LOAD',
+        payload: sportToAdd
+      };
+  
+      const nextState = sportReducer(initialState, action);
+  
+      expect(nextState.sports).toContain(sportToAdd);
+    });
+
+    it('should handle default action', () => {
       const expectedState = {
         selectedSport: SPORT_LIST[0],
         sports: SPORT_LIST
