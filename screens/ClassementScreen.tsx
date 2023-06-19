@@ -1,10 +1,11 @@
 import {Pressable, ScrollView, StyleSheet, Text} from "react-native";
 import React, {useEffect} from "react";
 import {Table, Row, TableWrapper, Cell} from 'react-native-table-component';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Classement} from "../model/Classement";
 import {Equipe} from "../model/Equipe";
 import EquipeScreen from "./EquipeScreen";
+import {actionGetClassement} from "../redux/actions/ActionGetClassement";
 
 const tableHead = ['#', 'Equipe', 'P', 'MJ'];
 
@@ -12,15 +13,21 @@ export default function ClassementScreen({navigation, route}) {
     const competition = route.params.competition;
     // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        const loadClassement = async () => {
+            // @ts-ignore
+            await dispatch(actionGetClassement());
+        };
+        loadClassement();
         navigation.getParent().setOptions({
             headerShown: false,
         });
         navigation.setOptions({
             headerTitle: competition.label,
         });
-    }, [])
+    }, [dispatch])
 
 
     function onPressItem(equipe: Equipe) {

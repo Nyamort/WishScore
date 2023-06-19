@@ -1,6 +1,4 @@
-import { Pressable} from "react-native";
 import {StyleSheet, Text, View} from "react-native";
-import {PageControlView} from 'react-native-ios-kit';
 import React, {useRef, useState} from "react";
 import Carousel from 'react-native-snap-carousel'
 
