@@ -1,5 +1,5 @@
 import {Pressable, ScrollView, StyleSheet, Text} from "react-native";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Table, Row, TableWrapper, Cell} from 'react-native-table-component';
 import {useDispatch, useSelector} from "react-redux";
 import {Classement} from "../model/Classement";
@@ -13,6 +13,24 @@ export default function ClassementScreen({navigation, route}) {
     const competition = route.params.competition;
     // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
+    // @ts-ignore
+    const classementList = useSelector(state => state.classementReducer.classements);
+    const [classements, setClassements] = useState<Classement[]>(classementList.filter((classement: Classement) => classement.competitionId === competition.id));
+
+
+    function onPressItem(equipe: Equipe) {
+        navigation.navigate("EquipeScreen", {"id": equipe.id,"name": equipe.name});
+    }
+    const dispatchEquipe = useDispatch();
+
+    useEffect(() => {
+        const loadEquipe = async () => {
+            // @ts-ignore
+            await dispatchEquipe(actionGetEquipe());
+        };
+        loadEquipe();
+    }, [dispatchEquipe]);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,24 +45,20 @@ export default function ClassementScreen({navigation, route}) {
         navigation.setOptions({
             headerTitle: competition.label,
         });
-    }, [dispatch])
+    }, [dispatch]);
 
-
-    function onPressItem(equipe: Equipe) {
-        navigation.navigate("EquipeScreen", {"id": equipe.id,"name": equipe.name});
-    }
-
-    // @ts-ignore
-    const classementList = useSelector(state => state.classementReducer.classements);
-    let classements = classementList.filter((classement: Classement) => classement.competitionId === competition.id);
-    classements = classements.map((classement: Classement) => {
+    useEffect(() => {
+        if(equipes.length>0){
+            // @ts-ignore
+            setClassements(classements.map((classement: Classement) => {
         return {
             position: classement.position,
             equipe: equipes.find((equipe) => equipe.id === classement.equipeId),
             nombrePoints: classement.nombrePoints,
             matchJoue: classement.matchJoue
         };
-    });
+    }));}},[equipes]);
+
 
 
     return (

@@ -16,10 +16,8 @@ export const actionGetClassement = () => {
             const classementListJson = await classementPromise.json();
             // @ts-ignore
             const classementList: Classement[] = classementListJson.map(elt => new Classement(elt.id, elt.position, elt.equipeId, elt.nombrePoints, elt.matchJoue, elt.competitionId));
-            console.log("try");
             dispatch(actionSetClassement(classementList)); //dispatch???
         } catch (error) {
-            console.log("catch");
             // @ts-ignore
             dispatch(actionSetClassement(CLASSEMENT_LIST));
             //You can dispatch to another action if you want to display an error message in the application

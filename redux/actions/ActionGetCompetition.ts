@@ -15,11 +15,10 @@ export const actionGetCompetition = () => {
             //Then use the json method to get json data from api/
             const competitionListJson = await competitionPromise.json();
             // @ts-ignore
-            const competitionList: Competition[] = competitionListJson.map(elt => new Competition(elt.id, elt.position, elt.equipeId, elt.nombrePoints, elt.matchJoue, elt.competitionId));
+            const competitionList: Competition[] = competitionListJson.map(elt => new Competition(elt.id,elt.name,elt.sportId,elt.equipeId));
 
             dispatch(actionSetCompetition(competitionList)); //dispatch???
         } catch (error) {
-            console.log("catch");
             dispatch(actionSetCompetition(COMPETITION_LIST));
             //You can dispatch to another action if you want to display an error message in the application
             //dispatch(fetchDataRejected(error))

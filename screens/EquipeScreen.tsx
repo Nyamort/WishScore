@@ -1,8 +1,8 @@
 import {StyleSheet, Text, View} from "react-native";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Carousel from 'react-native-snap-carousel'
 
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Match} from "../model/Match";
 import MatchList, {ITEM_WIDTH, SLIDER_WIDTH} from "../components/MatchList";
 
@@ -12,6 +12,17 @@ export default function EquipeScreen({route}) {
     const isCarousel = useRef(null)
     // @ts-ignore
     const equipeList = useSelector(state => state.equipeReducer.equipes);
+
+    const dispatchEquipe = useDispatch();
+
+    useEffect(() => {
+        const loadEquipe = async () => {
+            // @ts-ignore
+            await dispatchEquipe(actionGetEquipe());
+        };
+        loadEquipe();
+    }, [dispatchEquipe]);
+
     // @ts-ignore
     const matchList = useSelector(state => state.matchReducer.match);
     let matchs = matchList.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id);

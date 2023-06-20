@@ -8,7 +8,8 @@ const initialState = {
     switch (action.type) {
         case EQUIPE_LOAD:
             state.equipes.push(action.payload)
-            return {...state};
+            return {...state,
+            equipes: action.payload};
         default:
             return state;
     }
