@@ -1,6 +1,6 @@
-import {Equipe} from "../../model/Equipe";
-import {CLASSEMENT_LOAD} from "../../constantes";
-import {EQUIPE_LIST} from "../../data/stub/stubEquipe";
+import {Equipe} from "../../../model/Equipe";
+import {CLASSEMENT_LOAD} from "../../../constantes";
+import {EQUIPE_LIST} from "../../../data/stub/stubEquipe";
 import {actionSetEquipe} from "./ActionSetEquipe";
 
 

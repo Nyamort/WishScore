@@ -4,7 +4,7 @@ import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {useEffect, useState} from "react";
 import {Sport} from "../model/Sport";
 import {useDispatch, useSelector} from "react-redux";
-import {actionGetCompetition} from "../redux/actions/ActionGetCompetition";
+import {actionGetCompetition} from "../redux/actions/competition/ActionGetCompetition";
 
 type CompetitionScreenProps = {
     sport: Sport

@@ -1,6 +1,6 @@
-import {Classement} from "../../model/Classement";
-import {CLASSEMENT_LOAD} from "../../constantes";
-import {CLASSEMENT_LIST} from "../../data/stub/stubClassement";
+import {Classement} from "../../../model/Classement";
+import {CLASSEMENT_LOAD} from "../../../constantes";
+import {CLASSEMENT_LIST} from "../../../data/stub/stubClassement";
 import {actionSetClassement} from "./ActionSetClassement";
 
 

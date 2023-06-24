@@ -1,4 +1,4 @@
-import {Competition} from "../../model/Competition";
+import {Competition} from "../../../model/Competition";
 
 export function actionSetCompetition(competitionList: Competition[]) {
     return {

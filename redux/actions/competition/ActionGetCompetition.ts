@@ -1,6 +1,6 @@
-import {Classement} from "../../model/Classement";
-import {CLASSEMENT_LOAD} from "../../constantes";
-import {COMPETITION_LIST} from "../../data/stub/stubCompetition";
+import {Classement} from "../../../model/Classement";
+import {CLASSEMENT_LOAD} from "../../../constantes";
+import {COMPETITION_LIST} from "../../../data/stub/stubCompetition";
 import {actionSetCompetition} from "./ActionSetCompetition";
 
 

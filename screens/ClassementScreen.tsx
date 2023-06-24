@@ -5,35 +5,42 @@ import {useDispatch, useSelector} from "react-redux";
 import {Classement} from "../model/Classement";
 import {Equipe} from "../model/Equipe";
 import EquipeScreen from "./EquipeScreen";
-import {actionGetClassement} from "../redux/actions/ActionGetClassement";
+import {actionGetClassement} from "../redux/actions/classement/ActionGetClassement";
+import {actionGetEquipe} from "../redux/actions/equipe/ActionGetEquipe";
+import {Sport} from "../model/Sport";
 
 const tableHead = ['#', 'Equipe', 'P', 'MJ'];
 
+type classementType = {
+    position: number,
+    equipe: Equipe,
+    nombrePoints: number,
+    matchJoue: number
+}
 export default function ClassementScreen({navigation, route}) {
     const competition = route.params.competition;
     // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
     // @ts-ignore
-    const classementList = useSelector(state => state.classementReducer.classements);
-    const [classements, setClassements] = useState<Classement[]>(classementList.filter((classement: Classement) => classement.competitionId === competition.id));
+    const classementList = useSelector(state => state.classementReducer.classements.filter((classement: Classement) => classement.competitionId === competition.id));
+    const [classements, setClassements] = useState<Classement[]>(classementList);
 
 
-    function onPressItem(equipe: Equipe) {
+    function onPressItem(id: string) {
+        // @ts-ignore
+        let equipe = equipes.find((equipe: Equipe) => equipe.id === id);
         navigation.navigate("EquipeScreen", {"id": equipe.id,"name": equipe.name});
     }
-    const dispatchEquipe = useDispatch();
-
-    useEffect(() => {
-        const loadEquipe = async () => {
-            // @ts-ignore
-            await dispatchEquipe(actionGetEquipe());
-        };
-        loadEquipe();
-    }, [dispatchEquipe]);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const loadEquipe = async () => {
+            // @ts-ignore
+            await dispatch(actionGetEquipe());
+        };
+        loadEquipe();
+
         const loadClassement = async () => {
             // @ts-ignore
             await dispatch(actionGetClassement());
@@ -50,14 +57,9 @@ export default function ClassementScreen({navigation, route}) {
     useEffect(() => {
         if(equipes.length>0){
             // @ts-ignore
-            setClassements(classements.map((classement: Classement) => {
-        return {
-            position: classement.position,
-            equipe: equipes.find((equipe) => equipe.id === classement.equipeId),
-            nombrePoints: classement.nombrePoints,
-            matchJoue: classement.matchJoue
-        };
-    }));}},[equipes]);
+            setClassements(classements.filter((classement: Classement) => classement.competitionId === competition.id));
+        }
+        },[equipes]);
 
 
 
@@ -68,10 +70,9 @@ export default function ClassementScreen({navigation, route}) {
             <ScrollView>
                 {
                     classements.map((rowData, index) => (
-                        <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipe)}>
-
+                        <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipeId)}>
                             <Cell width={40} textStyle={styles.text} data={rowData.position}/>
-                            <Cell width={250} textStyle={styles.text} data={rowData.equipe.name}/>
+                            <Cell width={250} textStyle={styles.text} data={equipes.find((equipe: Equipe)=> equipe.id === rowData.equipeId).name}/>
                             <Cell textStyle={styles.text} data={rowData.nombrePoints}/>
                             <Cell textStyle={styles.text} data={rowData.matchJoue}/>
                         </Pressable>
