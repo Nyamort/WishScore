@@ -33,7 +33,7 @@ export default function CompetitionScreen(props: CompetitionScreenProps) {
 
     useEffect(() => {
         filterData(selectedSport);
-    }, [competitions]);
+    }, [competitions,selectedSport]);
 
     useFocusEffect(() => {
         navigation.getParent().setOptions({

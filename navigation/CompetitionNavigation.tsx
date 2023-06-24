@@ -12,6 +12,7 @@ export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
     //@ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
+    console.log(selectedSport);
     const [gesture, setGesture] = useState(false);
     useEffect(
         () => {

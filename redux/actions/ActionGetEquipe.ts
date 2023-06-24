@@ -16,7 +16,7 @@ export const actionGetEquipe = () => {
             const equipeListJson = await equipePromise.json();
             // @ts-ignore
             const equipeList: Classement[] = equipeListJson.map(elt => new Equipe(elt.id,elt.name));
-            dispatch(actionSetEquipe(equipeList)); //dispatch???
+            dispatch(actionSetEquipe(equipeList));
         } catch (error) {
             // @ts-ignore
             dispatch(actionSetEquipe(EQUIPE_LIST));

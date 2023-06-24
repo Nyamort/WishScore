@@ -17,7 +17,7 @@ export const actionGetCompetition = () => {
             // @ts-ignore
             const competitionList: Competition[] = competitionListJson.map(elt => new Competition(elt.id,elt.name,elt.sportId,elt.equipeId));
 
-            dispatch(actionSetCompetition(competitionList)); //dispatch???
+            dispatch(actionSetCompetition(competitionList));
         } catch (error) {
             dispatch(actionSetCompetition(COMPETITION_LIST));
             //You can dispatch to another action if you want to display an error message in the application
