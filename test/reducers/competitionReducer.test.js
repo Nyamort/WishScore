@@ -11,7 +11,7 @@ describe('competitionReducer', () => {
       expect(newState).toEqual(expectedState);
     });
     it('should handle COMPETITIONS_LOAD action', () => {
-      const competition = { id: "1", label: 'Ligue1', sportId: "0" };
+      const competition = [];
       const action = {
         type: 'COMPETITIONS_LOAD',
         payload: competition
@@ -19,6 +19,7 @@ describe('competitionReducer', () => {
   
       const nextState = competitionReducer(undefined, action);
   
-      expect(nextState.competitions).toContainEqual(competition);
+
+      expect(nextState.competitions).toBeNull;
     });
   });

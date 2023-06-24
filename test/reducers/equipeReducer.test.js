@@ -23,6 +23,6 @@ describe('equipeReducer', () => {
   
       const nextState = equipeReducer(initialState, action);
   
-      expect(nextState.equipes).toContain(equipeToAdd);
+      expect(nextState.equipes).toEqual(equipeToAdd);
     });
   });
