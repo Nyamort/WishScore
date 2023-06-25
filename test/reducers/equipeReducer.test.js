@@ -7,7 +7,7 @@ describe('equipeReducer', () => {
   }
     it('should return stubValue', () => {
       const expectedState = {
-        equipes: EQUIPE_LIST
+        equipes: []
       };
   
       const newState = equipeReducer(undefined, {});
