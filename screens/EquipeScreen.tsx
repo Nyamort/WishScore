@@ -5,6 +5,8 @@ import Carousel from 'react-native-snap-carousel'
 import {useDispatch, useSelector} from 'react-redux';
 import {Match} from "../model/Match";
 import MatchList, {ITEM_WIDTH, SLIDER_WIDTH} from "../components/MatchList";
+import {actionGetEquipe} from "../redux/actions/equipe/ActionGetEquipe";
+import {actionGetMatch} from "../redux/actions/match/ActionGetMatch";
 
 
 export default function EquipeScreen({route}) {
@@ -24,7 +26,18 @@ export default function EquipeScreen({route}) {
     }, [dispatchEquipe]);
 
     // @ts-ignore
-    const matchList = useSelector(state => state.matchReducer.match);
+    const matchList = useSelector(state => state.matchReducer.matchs);
+
+    const dispatchMatch = useDispatch();
+
+    useEffect(() => {
+        const loadMatch = async () => {
+            // @ts-ignore
+            await dispatchMatch(actionGetMatch());
+        };
+        loadMatch();
+    }, [dispatchMatch]);
+
     let matchs = matchList.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id);
     matchs = matchs.slice(0,10);
     const [victoire, setVictoire] = useState(0);

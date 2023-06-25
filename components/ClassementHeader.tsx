@@ -16,6 +16,7 @@ export function ClassementHeader () {
     const dispatch = useDispatch();
     const [isFavorite, setIsFavorite] = React.useState(route.params['isFavorite']);
 
+    //@ts-ignore
     const favoritesCompetition = useSelector(state => state.favoriReducer.favoris.competition) as Competition[];
 
     const competition = route.params['competition'];

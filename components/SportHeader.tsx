@@ -6,9 +6,13 @@ import {SportModalItem} from "./SportModalItem";
 import {SportModalHeader} from "./SportModalHeader";
 import {FontAwesome} from "@expo/vector-icons";
 import {Sport} from "../model/Sport";
+import {actionGetSport} from "../redux/actions/sport/ActionGetSport";
+
 
 export default function SportHeader() {
+    //@ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
+    //@ts-ignore
     const sports = useSelector(state => state.sportReducer.sports) as Sport[];
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const snapPoints = useMemo(() => ['50%', '75%'], []);
@@ -19,8 +23,18 @@ export default function SportHeader() {
     const close = () => {
         dismiss();
     }
+    //@ts-ignore
+    const favoriteSports = useSelector(state => state.favoriReducer.favoris?.sports) as Sport[];
 
-    const favoriteSports = useSelector(state => state.favoriReducer.favoris.sports) as Sport[];
+
+    const dispatchSport = useDispatch();
+    useEffect(() => {
+        const loadSport = async () => {
+            // @ts-ignore
+            await dispatchSport(actionGetSport());
+        }
+        loadSport();
+    }, [dispatchSport]);
 
     return (
         <View style={styles.container}>

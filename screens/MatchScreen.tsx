@@ -4,7 +4,7 @@ import MatchItem, {MatchItemProps} from "../components/MatchItem";
 import {FlatList} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 export const MATCHLIST: MatchItemProps[] = [
     {equipe1: "Saint-Etienne", equipe2: "Lyon", score1: 5, score2: 4},
 ]
@@ -13,6 +13,16 @@ export default function MatchScreen() {
     // @ts-ignore
     const MatchList = useSelector(state => state.matchReducer.match);
     const navigation = useNavigation();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const loadMatch = async () => {
+            // @ts-ignore
+            await dispatch(actionGetMatch());
+        };
+        loadMatch();
+    }, [dispatch]);
 
     useEffect(() => {
         navigation.getParent().setOptions({

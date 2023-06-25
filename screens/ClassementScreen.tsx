@@ -33,14 +33,9 @@ export default function ClassementScreen({navigation, route}) {
     }
 
     const dispatch = useDispatch();
+    const dispatchEquipe = useDispatch();
 
     useEffect(() => {
-        const loadEquipe = async () => {
-            // @ts-ignore
-            await dispatch(actionGetEquipe());
-        };
-        loadEquipe();
-
         const loadClassement = async () => {
             // @ts-ignore
             await dispatch(actionGetClassement());
@@ -53,6 +48,15 @@ export default function ClassementScreen({navigation, route}) {
             headerTitle: competition.label,
         });
     }, [dispatch]);
+
+    useEffect(() => {
+        const loadClassement = async () => {
+            // @ts-ignore
+            await dispatchEquipe(actionGetEquipe());
+        };
+        loadClassement();
+    }, [dispatchEquipe]);
+
 
     useEffect(() => {
         if(equipes.length>0){
@@ -72,7 +76,7 @@ export default function ClassementScreen({navigation, route}) {
                     classements.map((rowData, index) => (
                         <Pressable key={index} style={styles.row} onPress={() => onPressItem(rowData.equipeId)}>
                             <Cell width={40} textStyle={styles.text} data={rowData.position}/>
-                            <Cell width={250} textStyle={styles.text} data={equipes.find((equipe: Equipe)=> equipe.id === rowData.equipeId).name}/>
+                            <Cell width={250} textStyle={styles.text} data={equipes.find((equipe: Equipe)=> equipe.id === rowData.equipeId)?.name}/>
                             <Cell textStyle={styles.text} data={rowData.nombrePoints}/>
                             <Cell textStyle={styles.text} data={rowData.matchJoue}/>
                         </Pressable>

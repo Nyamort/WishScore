@@ -1,18 +1,18 @@
 import {createStackNavigator} from "@react-navigation/stack";
 import {Platform, StyleSheet} from "react-native";
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import CompetitionScreen from "../screens/CompetitionScreen";
 import ClassementScreen from "../screens/ClassementScreen";
 import EquipeScreen from "../screens/EquipeScreen";
 import {ClassementHeader} from "../components/ClassementHeader";
+import {actionGetSport} from "../redux/actions/sport/ActionGetSport";
 
 
 export default function CompetitionNavigation() {
     const Stack = createStackNavigator();
     //@ts-ignore
     const selectedSport = useSelector(state => state.sportReducer.selectedSport);
-    console.log(selectedSport);
     const [gesture, setGesture] = useState(false);
     useEffect(
         () => {
