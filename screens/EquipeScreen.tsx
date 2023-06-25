@@ -9,7 +9,7 @@ import {actionGetEquipe} from "../redux/actions/equipe/ActionGetEquipe";
 import {actionGetMatch} from "../redux/actions/match/ActionGetMatch";
 
 
-export default function EquipeScreen({route}) {
+export default function EquipeScreen({route, navigation}) {
     const max = 7;
     const isCarousel = useRef(null)
     // @ts-ignore
@@ -73,7 +73,9 @@ export default function EquipeScreen({route}) {
         setMatchs(match);
         console.log("matchs", matchs);
     }, [matchList]);
-
+    navigation.setOptions({
+        headerTitle: route.params.name,
+    });
 
     return (<View style={styles.body}>
             <Text style={styles.title}>{route.params.name}</Text>
