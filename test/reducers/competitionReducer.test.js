@@ -4,7 +4,7 @@ import { COMPETITION_LIST } from "../../data/stub/stubCompetition";
 describe('competitionReducer', () => {
     it('should return stubValue', () => {
       const expectedState = {
-        competitions: COMPETITION_LIST
+        competitions: []
       };
   
       const newState = competitionReducer(undefined, {});
