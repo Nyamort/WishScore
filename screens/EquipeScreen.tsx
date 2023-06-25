@@ -29,7 +29,13 @@ export default function EquipeScreen({route}) {
     const matchList = useSelector(state => state.matchReducer.matchs);
 
     const dispatchMatch = useDispatch();
-
+    const [matchs, setMatchs] = useState<Match[]>(matchList?.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id));
+    const [victoire, setVictoire] = useState(0);
+    const [defaite, setDefaite] = useState(0);
+    const [nul, setNul] = useState(0);
+    let win = 0;
+    let loose = 0;
+    let matchNul = 0;
     useEffect(() => {
         const loadMatch = async () => {
             // @ts-ignore
@@ -38,36 +44,34 @@ export default function EquipeScreen({route}) {
         loadMatch();
     }, [dispatchMatch]);
 
-    let matchs = matchList.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id);
-    matchs = matchs.slice(0,10);
-    const [victoire, setVictoire] = useState(0);
-    const [defaite, setDefaite] = useState(0);
-    const [nul, setNul] = useState(0);
-    let win = 0;
-    let loose = 0;
-    let matchNul = 0;
-    matchs.forEach((item) => {
-        if(item.score1==item.score2){
-            matchNul++;
+    useEffect(() => {
+        setMatchs(matchList?.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id));
+        setMatchs(matchs?.slice(0,10));
+        matchs?.forEach((item) => {
+            if(item.score1==item.score2){
+                matchNul++;
+            }
+            else if (item.equipe1Id === route.params.id && item.score1 > item.score2) {
+                win++;
+            } else if (item.equipe2Id === route.params.id && item.score2 > item.score1) {
+                win++;
+            }
+            else{
+                loose++;
+            }
+        });
+        if(win!=victoire){
+            setVictoire(win);
         }
-        else if (item.equipe1Id === route.params.id && item.score1 > item.score2) {
-            win++;
-        } else if (item.equipe2Id === route.params.id && item.score2 > item.score1) {
-            win++;
+        if(loose!=defaite){
+            setDefaite(loose);
         }
-        else{
-            loose++;
+        if(matchNul!=nul){
+            setNul(matchNul);
         }
-    });
-    if(win!=victoire){
-        setVictoire(win);
-    }
-    if(loose!=defaite){
-        setDefaite(loose);
-    }
-    if(matchNul!=nul){
-        setNul(matchNul);
-    }
+    }, [matchList]);
+
+
     return (<View style={styles.body}>
             <Text style={styles.title}>{route.params.name}</Text>
             <View style={styles.pageControl}>

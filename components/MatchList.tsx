@@ -18,9 +18,6 @@ export default function MatchList(props: MatchListProps) {
     const route = useRoute();
     const {item, name1, name2} = props;
     const max = 7;
-    console.log(item.equipe1Id+""+item.score1)
-    console.log(item.equipe1Id === props.nameID && item.score1 > item.score2 ||
-        item.equipe2Id === props.nameID && item.score2 > item.score1);
     return (
         <>
             <Pressable onPress={() => {

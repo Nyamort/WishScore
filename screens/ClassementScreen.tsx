@@ -22,8 +22,8 @@ export default function ClassementScreen({navigation, route}) {
     // @ts-ignore
     const equipes: Equipe[] = useSelector(state => state.equipeReducer.equipes);
     // @ts-ignore
-    const classementList = useSelector(state => state.classementReducer.classements.filter((classement: Classement) => classement.competitionId === competition.id));
-    const [classements, setClassements] = useState<Classement[]>(classementList);
+    const classementList = useSelector(state => state.classementReducer.classements);
+    const [classements, setClassements] = useState<Classement[]>(classementList.filter((classement: Classement) => classement.competitionId === competition.id));
 
 
     function onPressItem(id: string) {
@@ -36,34 +36,51 @@ export default function ClassementScreen({navigation, route}) {
     const dispatchEquipe = useDispatch();
 
     useEffect(() => {
+        const loadEquipe = async () => {
+            // @ts-ignore
+            await dispatch(actionGetEquipe());
+        };
+        loadEquipe();
         const loadClassement = async () => {
             // @ts-ignore
-            await dispatch(actionGetClassement());
+            await dispatchEquipe(actionGetClassement());
         };
         loadClassement();
+    }, [dispatch]);
+
+    useEffect(() => {
+        const loadClassement = async () => {
+            // @ts-ignore
+            await dispatchEquipe(actionGetClassement());
+        };
+        loadClassement();
+        const loadEquipe = async () => {
+            // @ts-ignore
+            await dispatch(actionGetEquipe());
+        };
+        loadEquipe();
         navigation.getParent().setOptions({
             headerShown: false,
         });
         navigation.setOptions({
             headerTitle: competition.label,
         });
-    }, [dispatch]);
-
-    useEffect(() => {
-        const loadClassement = async () => {
-            // @ts-ignore
-            await dispatchEquipe(actionGetEquipe());
-        };
-        loadClassement();
     }, [dispatchEquipe]);
 
 
     useEffect(() => {
         if(equipes.length>0){
             // @ts-ignore
-            setClassements(classements.filter((classement: Classement) => classement.competitionId === competition.id));
+            setClassements(classementList.filter((classement: Classement) => classement.competitionId === competition.id));
         }
         },[equipes]);
+
+    useEffect(() => {
+        if(equipes.length>0){
+            // @ts-ignore
+            setClassements(classementList.filter((classement: Classement) => classement.competitionId === competition.id));
+        }
+    },[classementList]);
 
 
 
