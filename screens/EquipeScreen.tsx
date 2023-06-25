@@ -14,8 +14,11 @@ export default function EquipeScreen({route}) {
     const isCarousel = useRef(null)
     // @ts-ignore
     const equipeList = useSelector(state => state.equipeReducer.equipes);
+    // @ts-ignore
+    const matchList = useSelector(state => state.matchReducer.matchs);
 
     const dispatchEquipe = useDispatch();
+    const dispatchMatch = useDispatch();
 
     useEffect(() => {
         const loadEquipe = async () => {
@@ -25,17 +28,6 @@ export default function EquipeScreen({route}) {
         loadEquipe();
     }, [dispatchEquipe]);
 
-    // @ts-ignore
-    const matchList = useSelector(state => state.matchReducer.matchs);
-
-    const dispatchMatch = useDispatch();
-    const [matchs, setMatchs] = useState<Match[]>(matchList?.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id));
-    const [victoire, setVictoire] = useState(0);
-    const [defaite, setDefaite] = useState(0);
-    const [nul, setNul] = useState(0);
-    let win = 0;
-    let loose = 0;
-    let matchNul = 0;
     useEffect(() => {
         const loadMatch = async () => {
             // @ts-ignore
@@ -44,10 +36,19 @@ export default function EquipeScreen({route}) {
         loadMatch();
     }, [dispatchMatch]);
 
+
+    const [matchs, setMatchs] = useState<Match[]>([]);
+    const [victoire, setVictoire] = useState(0);
+    const [defaite, setDefaite] = useState(0);
+    const [nul, setNul] = useState(0);
+    let win = 0;
+    let loose = 0;
+    let matchNul = 0;
+
     useEffect(() => {
-        setMatchs(matchList?.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id));
-        setMatchs(matchs?.slice(0,10));
-        matchs?.forEach((item) => {
+        let match = matchList?.filter((match: Match) => match.equipe1Id === route.params.id || match.equipe2Id === route.params.id);
+        match?.slice(0,10);
+        match?.forEach((item) => {
             if(item.score1==item.score2){
                 matchNul++;
             }
@@ -69,6 +70,8 @@ export default function EquipeScreen({route}) {
         if(matchNul!=nul){
             setNul(matchNul);
         }
+        setMatchs(match);
+        console.log("matchs", matchs);
     }, [matchList]);
 
 
